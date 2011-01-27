@@ -1,5 +1,9 @@
 package org.napalm4j;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.napalm4j.spring.WebServer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 /**
@@ -7,21 +11,30 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
  */
 public class Napalm {
 
-    public static <T> void run(int port, Class<T> app) {
+	private static AnnotationConfigWebApplicationContext ctx = null;
+	
+    /**
+     * Runs Napalm
+     * @param port Port
+     * @param apps List of root applications
+     */
+    public static void run(int port, Class<?>... apps) {
         try {
-
-        	//WebServerService server = new WebServerService();
-        	//server.start(port, app);
-        		
-        	AnnotationConfigWebApplicationContext ctx = initSpring(app);
-        	//WebServerService web = ctx.getBean(WebServerService.class);
-        	//WebServerService web = new WebServerService();
-        	//web.start(ctx, port, app);
+       		
+        	if (ctx != null) {
+        		throw new RuntimeException("A Napalm server is already running!");
+        	}
+        	
+        	ctx = initSpring(apps);
+        	WebServer web = ctx.getBean(WebServer.class);
+        	web.init(port, apps);
+        	
+        	web.start();
         	
         	System.out.println("== Napalm has taken the stage...");
         	System.out.println(">> Listening on 0.0.0.0:" + port);
         	
-        	//web.join();
+        	web.join();
         	
         } catch (RuntimeException ex) {
             throw ex;
@@ -30,21 +43,30 @@ public class Napalm {
         }
     }
 
+    /**
+     * Stops Napalm
+     */
     public static void stop() {
-        //TODO
+        WebServer web = ctx.getBean(WebServer.class);
+        try {
+			web.stop();
+        } catch (RuntimeException ex) {
+            throw ex;			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
     }
     
-    private static <T> AnnotationConfigWebApplicationContext initSpring(Class<T> app) {
+    private static AnnotationConfigWebApplicationContext initSpring(Class<?>... apps) {
     	AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
     	//register Napalm and app-specific Spring beans
-    	ctx.setConfigLocations(new String[]{app.getPackage().getName()});
-    	ctx.refresh();
+    	Set<String> packages = new HashSet<String>();
+    	packages.add(WebServer.class.getPackage().getName());
+    	for (Class<?> app : apps) {
+    		packages.add(app.getPackage().getName());
+    	}
     	
-    	//auto-register all JAX-RS beans with CXF
-    	//SpringJAXRSServerFactoryBean jaxrs = ctx.getBean(SpringJAXRSServerFactoryBean.class);
-    	//Map<String,Object> beans = ctx.getBeansWithAnnotation(Path.class);
-    	//jaxrs.setServiceBeans(new ArrayList<Object>(beans.values()));
-    	//jaxrs.create();
+    	ctx.setConfigLocations(packages.toArray(new String[packages.size()]));
 
     	ctx.refresh();
     	ctx.registerShutdownHook();
