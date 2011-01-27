@@ -9,7 +9,7 @@ A Java web-microframework, inspired by Sinatra (http://sinatrarb.com).
 
 Jetty, Spring and Jersey all rolled into one super simple package.
 
-No web.xml. No beans.xml. *No XML, period.*
+No *web.xml*. No *beans.xml*. **No XML, period.**
 
 Grind this in your beat::
 	
