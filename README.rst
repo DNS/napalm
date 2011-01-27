@@ -1,9 +1,14 @@
-A Java web-microframework, inspired by Ruby Sinatra
+======
+NAPALM
+======
+Death to Java complexity
 
-Jetty, Spring and Jersey all rolled into one super simple package.
-Zero XML config.
+	A Java web-microframework, inspired by Ruby Sinatra.
 
-code::
+	Jetty, Spring and Jersey all rolled into one super simple package.
+	Zero XML config.
+
+Grind this in your beat::
 	
 	@Service @Path("/") 
 	public class NapalmTest  {
@@ -20,7 +25,7 @@ code::
 	    
 	}
 	
-code::
+And blast it::
 
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
