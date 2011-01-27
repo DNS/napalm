@@ -5,7 +5,7 @@ NAPALM
 Death to Java complexity
 ------------------------
 
-A Java web-microframework, inspired by Sinatra (http://sinatrarb.org).
+A Java web-microframework, inspired by Sinatra (http://www.sinatrarb.com).
 
 Jetty, Spring and Jersey all rolled into one super simple package.
 
