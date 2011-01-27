@@ -7,7 +7,8 @@ Death to Java complexity
 
 A Java web-microframework, inspired by Sinatra (http://www.sinatrarb.com).
 
-Jetty, Spring and Jersey all rolled into one super simple package.
+Jetty, Spring and JAX-RS all rolled into one super simple package.
+All REST, all the time.
 
 No *web.xml*. No *beans.xml*. **No XML, period.**
 
