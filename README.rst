@@ -3,7 +3,7 @@ A Java web-microframework, inspired by Ruby Sinatra
 Jetty, Spring and Jersey all rolled into one super simple package.
 Zero XML config.
 
-..code:: java
+code::
 	
 	@Service @Path("/") 
 	public class NapalmTest  {
@@ -20,7 +20,7 @@ Zero XML config.
 	    
 	}
 	
-..code::
+code::
 
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
