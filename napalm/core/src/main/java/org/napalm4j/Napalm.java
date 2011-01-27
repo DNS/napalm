@@ -34,7 +34,7 @@ public class Napalm {
         	System.out.println("== Napalm has taken the stage...");
         	System.out.println(">> Listening on 0.0.0.0:" + port);
         	
-        	web.join();
+          	web.join();
         	
         } catch (RuntimeException ex) {
             throw ex;
