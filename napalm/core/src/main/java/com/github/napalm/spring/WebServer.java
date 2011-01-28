@@ -18,31 +18,34 @@ import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 @Service
 public class WebServer extends Server {
 
-	@Autowired private WebApplicationContext ctx;
-	
-	public void init(int port, Class<?>...apps) {
-		
-		Connector connector=new SelectChannelConnector();
-        connector.setPort(port);
-        setConnectors(new Connector[]{connector});
-						
+	@Autowired
+	private WebApplicationContext ctx;
+
+	public void init(int port, Class<?>... apps) {
+
+		Connector connector = new SelectChannelConnector();
+		connector.setPort(port);
+		setConnectors(new Connector[] { connector });
+
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-        context.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
-        
-        SpringServlet servlet = new SpringServlet();
-        ServletHolder holder = new ServletHolder(servlet);
-        holder.setInitParameter("com.sun.jersey.config.property.resourceConfigClass","com.sun.jersey.api.core.PackagesResourceConfig");
-        
-        //auto-register all JAX-RS classes
-        Set<String> packages = Sets.newHashSet();
-    	for (Class<?> app : apps) {
-    		packages.add(app.getPackage().getName());
-    	}
-        holder.setInitParameter("com.sun.jersey.config.property.packages",Joiner.on(",").join(packages));
-        context.addServlet(holder, "/*");
-        
-        setHandler(context);
+		context.setContextPath("/");
+		context.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
+
+		SpringServlet servlet = new SpringServlet();
+		ServletHolder holder = new ServletHolder(servlet);
+		holder.setInitParameter("com.sun.jersey.config.property.resourceConfigClass",
+				"com.sun.jersey.api.core.PackagesResourceConfig");
+
+		// auto-register all JAX-RS classes
+		Set<String> packages = Sets.newHashSet();
+		for (Class<?> app : apps) {
+			packages.add(app.getPackage().getName());
+		}
+		holder.setInitParameter("com.sun.jersey.config.property.packages", Joiner.on(",").join(packages));
+
+		context.addServlet(holder, "/*");
+
+		setHandler(context);
 	}
 
 }
