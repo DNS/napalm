@@ -76,7 +76,7 @@ folder
 Available plugins
 ^^^^^^^^^^^^^^^^^
 
-* Velocity
+* Velocity: https://github.com/jacek99/Napalm/tree/master/napalm/napalm-velocity
 * Freemarker (TODO)
 * JMustache (TODO)
 * JHaml (TODO)

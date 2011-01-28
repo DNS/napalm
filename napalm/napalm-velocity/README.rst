@@ -24,7 +24,7 @@ Just include *NapalmVelocityEngine.class* in the list of apps to run::
 	
 Maven
 ^^^^^
-
+::
     <dependency> 
             <groupId>napalm</groupId> 
             <artifactId>napalm-velocity</artifactId> 
