@@ -31,35 +31,32 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 	
-Info
-^^^^	
+License
+=======
+
+Apache 2.20	
 	
-	License
-	=======
+Forum
+=====
+
+http://groups.google.com/group/napalm4j		
 	
-	Apache 2.20	
-		
-	Forum
-	=====
+Maven
+=====
+
+Get it via our custom Maven repo::	
 	
-	http://groups.google.com/group/napalm4j		
-		
-	Maven
-	=====
-	
-	Get it via our custom Maven repo::	
-		
-	    <dependency> 
-	            <groupId>napalm</groupId> 
-	            <artifactId>napalm</artifactId> 
-	            <version>0.1-SNAPSHOT</version> 
-	    </dependency>
-	    
-	    <repositories> 
-	        <repository> 
-	                <id>javabuilders</id> 
-	                <url>http://javabuilders.googlecode.com/svn/repo</url> 
-	        </repository> 
-	    </repositories>
+    <dependency> 
+            <groupId>napalm</groupId> 
+            <artifactId>napalm</artifactId> 
+            <version>0.1-SNAPSHOT</version> 
+    </dependency>
+    
+    <repositories> 
+        <repository> 
+                <id>javabuilders</id> 
+                <url>http://javabuilders.googlecode.com/svn/repo</url> 
+        </repository> 
+    </repositories>
      
 		
