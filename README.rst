@@ -36,7 +36,7 @@ Maven
 
 Get it via Maven:	
 	
-..code::	
+code::	
 	
     <dependency> 
             <groupId>napalm</groupId> 
