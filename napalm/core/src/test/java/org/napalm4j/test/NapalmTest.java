@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class NapalmTest  {
 
     @GET 
-    public String sayHi() {
+    public String get() {
         return "hi";
     }
 
