@@ -31,3 +31,22 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 		
+Maven
+^^^^^
+
+Get it via Maven:	
+	
+    <dependency> 
+            <groupId>napalm</groupId> 
+            <artifactId>napalm</artifactId> 
+            <version>0.1-SNAPSHOT</version> 
+    </dependency>
+    
+    <repositories> 
+        <repository> 
+                <id>javabuilders</id> 
+                <url>http://javabuilders.googlecode.com/svn/repo</url> 
+        </repository> 
+	</repositories>
+     
+		

@@ -9,7 +9,7 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>napalm</groupId>
-	<artifactId>core</artifactId>
+	<artifactId>napalm</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Napalm Core</name>
 	<url>http://maven.apache.org</url>

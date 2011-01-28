@@ -3,8 +3,9 @@ package org.napalm4j.test;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-import org.napalm4j.Napalm;
 import org.springframework.stereotype.Service;
+
+import com.github.napalm.Napalm;
 
 /**
  * Unit test for simple App.
