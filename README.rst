@@ -31,6 +31,11 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 		
+Forum
+^^^^^
+
+http://groups.google.com/group/napalm4j		
+		
 Maven
 ^^^^^
 
