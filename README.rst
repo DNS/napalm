@@ -34,7 +34,7 @@ And blast it::
 License
 =======
 
-Apache 2.20	
+Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html	
 	
 Forum
 =====
