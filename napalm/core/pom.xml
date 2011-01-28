@@ -6,11 +6,11 @@
 	<parent>
 		<artifactId>napalm</artifactId>
 		<groupId>org.napalm4j</groupId>
-		<version>1.0-SNAPSHOT</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>napalm</groupId>
 	<artifactId>core</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<name>Napalm Core</name>
 	<url>http://maven.apache.org</url>
 
