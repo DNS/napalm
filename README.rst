@@ -1,9 +1,6 @@
-======
-NAPALM
-======
-------------------------
-Death to Java complexity
-------------------------
+=================================
+NAPALM : Death to Java complexity
+=================================
 
 A Java web-microframework, inspired by Sinatra (http://www.sinatrarb.com).
 
