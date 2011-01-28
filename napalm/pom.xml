@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.napalm4j</groupId>
+	<groupId>napalm</groupId>
 	<artifactId>napalm-parent</artifactId>
 	<packaging>pom</packaging>
 	<version>0.1-SNAPSHOT</version>
@@ -10,9 +10,9 @@
 	<url>http://maven.apache.org</url>
 	<modules>
 		<module>core</module>
-		<!-- 
-		<module>maven</module>
-		 -->
+		<!-- <module>maven</module> -->
+		<module>napalm-velocity</module>
+		<module>napalm-freemarker</module>
 	</modules>
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
@@ -137,7 +137,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		
+
 		<extensions>
 			<extension>
 				<groupId>org.jvnet.wagon-svn</groupId>
@@ -145,7 +145,7 @@
 				<version>1.9</version>
 			</extension>
 		</extensions>
-		
+
 	</build>
 
 	<repositories>
@@ -154,8 +154,8 @@
 			<url>http://download.java.net/maven/2/</url>
 		</repository>
 	</repositories>
-	
-		<distributionManagement>
+
+	<distributionManagement>
 		<repository>
 			<id>googlecode</id>
 			<url>svn:https://javabuilders.googlecode.com/svn/repo</url>

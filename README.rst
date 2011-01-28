@@ -59,4 +59,26 @@ Get it via our custom Maven repo::
         </repository> 
     </repositories>
      
+Template Plugins
+================
+Napalm apps are supposed to be self container JARs run via a simple "java -jar myapp.jar" command,
+with embedded Jetty serving the content.
+
+Hence, all content is supposed to be embedded in the JAR and thus all templates are placed directly
+in the classpath and not in an external folder.
+
+If using Maven/Gradle/Buildr, you would put them all under the standard
+	
+	src/main/resources/templates
+	
+folder
+
+Available plugins
+^^^^^^^^^^^^^^^^^
+
+* Velocity
+* Freemarker (TODO)
+* JMustache (TODO)
+* JHaml (TODO)
+* Scalate (TODO)     
 		

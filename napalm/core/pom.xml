@@ -4,8 +4,8 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>napalm</artifactId>
-		<groupId>org.napalm4j</groupId>
+		<groupId>napalm</groupId>
+		<artifactId>napalm-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>napalm</groupId>
@@ -76,6 +76,11 @@
 		<dependency>
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 	</dependencies>
 	<properties>
