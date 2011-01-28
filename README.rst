@@ -34,7 +34,7 @@ And blast it::
 Maven
 ^^^^^
 
-Get it via Maven::	
+Get it via our custom Maven repo::	
 	
     <dependency> 
             <groupId>napalm</groupId> 
