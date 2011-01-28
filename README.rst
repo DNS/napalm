@@ -61,7 +61,7 @@ Get it via our custom Maven repo::
      
 Template Plugins
 ================
-Napalm apps are supposed to be self container JARs run via a simple "java -jar myapp.jar" command,
+Napalm apps are supposed to be self-contained JARs run via a simple "java -jar myapp.jar" command,
 with embedded Jetty serving the content.
 
 Hence, all content is supposed to be embedded in the JAR and thus all templates are placed directly
