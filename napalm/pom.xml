@@ -148,12 +148,6 @@
 							<goal>exec</goal>
 						</goals>
 					</execution>
-					<execution>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
 				</executions>
 				<configuration>
 					<classpathScope>test</classpathScope>
