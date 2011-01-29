@@ -3,12 +3,11 @@ package com.github.napalm;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.jetty.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
-import com.github.napalm.spring.WebServer;
+import com.github.napalm.spring.NapalmServer;
 
 /**
  * Main entry point for Napalm apps
@@ -25,7 +24,7 @@ public class Napalm {
 	 * @param port Port
 	 * @param apps List of root applications
 	 */
-	public static WebServer start(int port, Class<?>... apps) {
+	public static NapalmServer start(int port, Class<?>... apps) {
 		try {
 
 			if (ctx != null) {
@@ -33,14 +32,16 @@ public class Napalm {
 			}
 
 			ctx = initSpring(apps);
-			final WebServer web = ctx.getBean(WebServer.class);
+			final NapalmServer web = ctx.getBean(NapalmServer.class);
 
 			web.init(port, apps);
 			web.start();
 			
+			LOG.info("Successfully started Napalm on port " + port);
+			
 			System.out.println("== Napalm has taken the stage...");
 			System.out.println(">> Listening on 0.0.0.0:" + port);
-
+			
 			return web;
 
 		} catch (RuntimeException ex) {
@@ -70,7 +71,7 @@ public class Napalm {
 	 * Stops Napalm
 	 */
 	public static void stop() {
-		WebServer web = ctx.getBean(WebServer.class);
+		NapalmServer web = ctx.getBean(NapalmServer.class);
 		try {
 			web.stop();
 		} catch (RuntimeException ex) {
@@ -84,7 +85,7 @@ public class Napalm {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		// register Napalm and app-specific Spring beans
 		Set<String> packages = new HashSet<String>();
-		packages.add(WebServer.class.getPackage().getName());
+		packages.add(NapalmServer.class.getPackage().getName());
 		for (Class<?> app : apps) {
 			packages.add(app.getPackage().getName());
 		}

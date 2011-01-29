@@ -20,11 +20,7 @@ public class NapalmTest {
 	}
 
 	public static void main(String[] args) {
-		Napalm.start(8080, NapalmTest.class);
-		
-		System.out.println("TEST");
-		
-		Napalm.stop();
+		Napalm.run(8080, NapalmTest.class);
 	}
 
 }

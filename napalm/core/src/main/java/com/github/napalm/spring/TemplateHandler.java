@@ -37,7 +37,7 @@ public class TemplateHandler {
 			LOG.error(ex.getMessage(), ex);
 			throw new WebApplicationException(
 					Response.serverError()
-							.entity("Internal template error. See server log for details.")
+							.entity("Internal server template error. See server log for details.")
 							.build());
 		}
 	}
