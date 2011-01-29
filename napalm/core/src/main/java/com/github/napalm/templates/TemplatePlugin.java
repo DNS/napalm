@@ -8,7 +8,7 @@ import java.util.Map;
  * @author jacekf
  */
 public interface TemplatePlugin {
-	public static final String TEMPLATE_ROOT = "templates";
+	public static final String TEMPLATE_ROOT = "templates/";
 
 	/**
 	 * Main rendering method

@@ -59,8 +59,7 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute,
 		return handler.render(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
-				Template template = getTemplate(TEMPLATE_ROOT + "/"
-						+ templateName);
+				Template template = getTemplate(TEMPLATE_ROOT + templateName);
 				VelocityContext context = new VelocityContext(parameters);
 				StringWriter writer = new StringWriter();
 				template.merge(context, writer);

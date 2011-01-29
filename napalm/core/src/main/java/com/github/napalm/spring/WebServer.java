@@ -20,6 +20,8 @@ public class WebServer extends Server {
 
 	@Autowired
 	private WebApplicationContext ctx;
+	@Autowired
+	private NapalmConfig config;
 
 	public void init(int port, Class<?>... apps) {
 
@@ -46,6 +48,10 @@ public class WebServer extends Server {
 		context.addServlet(holder, "/*");
 
 		setHandler(context);
+		
+		if (config.isInDevelopmentMode()) {
+			System.out.println("Detected DEVELOPMENT mode");
+		}
 	}
 
 }
