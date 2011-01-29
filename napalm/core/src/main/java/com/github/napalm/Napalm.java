@@ -3,6 +3,9 @@ package com.github.napalm;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.jetty.server.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import com.github.napalm.spring.WebServer;
@@ -12,8 +15,41 @@ import com.github.napalm.spring.WebServer;
  */
 public class Napalm {
 
+	private static final Logger LOG = LoggerFactory.getLogger(Napalm.class);
 	private static AnnotationConfigWebApplicationContext ctx = null;
+	
+	
+	/**
+	 * Starts Napalm, bu does not join to it
+	 * 
+	 * @param port Port
+	 * @param apps List of root applications
+	 */
+	public static WebServer start(int port, Class<?>... apps) {
+		try {
 
+			if (ctx != null) {
+				throw new RuntimeException("A Napalm server is already running!");
+			}
+
+			ctx = initSpring(apps);
+			final WebServer web = ctx.getBean(WebServer.class);
+
+			web.init(port, apps);
+			web.start();
+			
+			System.out.println("== Napalm has taken the stage...");
+			System.out.println(">> Listening on 0.0.0.0:" + port);
+
+			return web;
+
+		} catch (RuntimeException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+	
 	/**
 	 * Runs Napalm
 	 * 
@@ -22,22 +58,7 @@ public class Napalm {
 	 */
 	public static void run(int port, Class<?>... apps) {
 		try {
-
-			if (ctx != null) {
-				throw new RuntimeException("A Napalm server is already running!");
-			}
-
-			ctx = initSpring(apps);
-			WebServer web = ctx.getBean(WebServer.class);
-			web.init(port, apps);
-
-			web.start();
-
-			System.out.println("== Napalm has taken the stage...");
-			System.out.println(">> Listening on 0.0.0.0:" + port);
-
-			web.join();
-
+			start(port,apps).join();
 		} catch (RuntimeException ex) {
 			throw ex;
 		} catch (Exception ex) {
