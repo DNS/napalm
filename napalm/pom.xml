@@ -140,23 +140,25 @@
 		</plugins>
 
 		<pluginManagement>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2</version>
-				<executions>
-					<execution>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>java</executable>
-					<classpathScope>test</classpathScope>
-				</configuration>
-			</plugin>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.2</version>
+					<executions>
+						<execution>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<executable>java</executable>
+						<classpathScope>test</classpathScope>
+					</configuration>
+				</plugin>
+			</plugins>
 		</pluginManagement>
 
 		<extensions>
