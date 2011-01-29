@@ -21,23 +21,29 @@ import com.github.napalm.spring.TemplateHandler;
 import com.github.napalm.templates.TemplatePlugin;
 
 /**
- * Napalm Velocity engine, pre-configured for fetching templates from classpath "templates" folder
+ * Napalm Velocity engine, pre-configured for fetching templates from classpath
+ * "templates" folder
  */
 @Service
-public class NapalmVelocityEngine extends VelocityEngine implements LogChute, TemplatePlugin {
+public class NapalmVelocityEngine extends VelocityEngine implements LogChute,
+		TemplatePlugin {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NapalmVelocityEngine.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(NapalmVelocityEngine.class);
 
 	@Autowired
 	private TemplateHandler handler;
 
 	@PostConstruct
-	public void test() {
+	public void postConstruct() {
 		setProperty(VelocityEngine.RUNTIME_LOG_LOGSYSTEM, this);
 		setProperty(VelocityEngine.RESOURCE_LOADER, "class");
-		setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
+		setProperty("class.resource.loader.class",
+				ClasspathResourceLoader.class.getName());
 		setProperty("class.resource.loader.path", "templates");
 		setProperty("class.resource.loader.modificationCheckInterval", "1");
+		setProperty("eventhandler.include.class",
+				"org.apache.velocity.app.event.implement.IncludeRelativePath");
 		init();
 	}
 
@@ -48,11 +54,13 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute, Te
 	 * @param parameters
 	 * @return
 	 */
-	public String render(final String templateName, final Map<String, ? extends Object> parameters) {
+	public String render(final String templateName,
+			final Map<String, ? extends Object> parameters) {
 		return handler.render(new Callable<String>() {
 			@Override
 			public String call() throws Exception {
-				Template template = getTemplate(TEMPLATE_ROOT + "/" + templateName);
+				Template template = getTemplate(TEMPLATE_ROOT + "/"
+						+ templateName);
 				VelocityContext context = new VelocityContext(parameters);
 				StringWriter writer = new StringWriter();
 				template.merge(context, writer);
@@ -63,7 +71,10 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute, Te
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apache.velocity.runtime.log.LogChute#init(org.apache.velocity.runtime.RuntimeServices)
+	 * 
+	 * @see
+	 * org.apache.velocity.runtime.log.LogChute#init(org.apache.velocity.runtime
+	 * .RuntimeServices)
 	 */
 	@Override
 	public void init(RuntimeServices rs) throws Exception {
@@ -72,6 +83,7 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute, Te
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.velocity.runtime.log.LogChute#log(int, java.lang.String)
 	 */
 	@Override
@@ -98,7 +110,9 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute, Te
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apache.velocity.runtime.log.LogChute#log(int, java.lang.String, java.lang.Throwable)
+	 * 
+	 * @see org.apache.velocity.runtime.log.LogChute#log(int, java.lang.String,
+	 * java.lang.Throwable)
 	 */
 	@Override
 	public void log(int level, String message, Throwable t) {
@@ -124,6 +138,7 @@ public class NapalmVelocityEngine extends VelocityEngine implements LogChute, Te
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.velocity.runtime.log.LogChute#isLevelEnabled(int)
 	 */
 	@Override
