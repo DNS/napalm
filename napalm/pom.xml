@@ -137,6 +137,9 @@
 				</configuration>
 			</plugin>
 
+		</plugins>
+
+		<pluginManagement>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -150,10 +153,11 @@
 					</execution>
 				</executions>
 				<configuration>
+					<executable>java</executable>
 					<classpathScope>test</classpathScope>
 				</configuration>
 			</plugin>
-		</plugins>
+		</pluginManagement>
 
 		<extensions>
 			<extension>
@@ -164,6 +168,8 @@
 		</extensions>
 
 	</build>
+
+
 
 	<repositories>
 		<repository>

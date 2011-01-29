@@ -89,7 +89,6 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<configuration>
-					<executable>java</executable>
 					<arguments>
 						<argument>-Dnapalm.join=false</argument>
 						<argument>-classpath</argument>
