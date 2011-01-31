@@ -26,6 +26,15 @@
 		</license>
 	</licenses>
 
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<dependencyManagement>
 
 		<dependencies>
@@ -121,6 +130,11 @@
 				<artifactId>jmustache</artifactId>
 				<version>1.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.yaml</groupId>
+				<artifactId>snakeyaml</artifactId>
+				<version>1.7</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -136,7 +150,6 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
 
 		<pluginManagement>

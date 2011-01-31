@@ -81,24 +81,18 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<configuration>
-					<arguments>
-						<argument>-Dnapalm.join=false</argument>
-						<argument>-classpath</argument>
-						<classpath/>
-						<argument>com.github.napalm.test.NapalmTest</argument>
-					</arguments>
-				</configuration>
-			</plugin>
-			 -->j
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<configuration> <arguments> <argument>-Dnapalm.join=false</argument> <argument>-classpath</argument> 
+				<classpath/> <argument>com.github.napalm.test.NapalmTest</argument> </arguments> 
+				</configuration> </plugin> -->
 		</plugins>
 	</build>
 

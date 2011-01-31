@@ -12,7 +12,7 @@ import com.github.napalm.Napalm;
  */
 @Service
 @Path("/")
-public class NapalmTest {
+public class NapalmTestApp {
 
 	@GET
 	public String get() {
@@ -20,7 +20,7 @@ public class NapalmTest {
 	}
 
 	public static void main(String[] args) {
-		Napalm.run(8080, NapalmTest.class);
+		Napalm.run(8080, NapalmTestApp.class);
 	}
 
 }

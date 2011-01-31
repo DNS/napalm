@@ -21,7 +21,9 @@
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util/7.2.2.v20101205/jetty-util-7.2.2.v20101205.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-util/7.2.2.v20101205/jetty-util-7.2.2.v20101205-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-webapp/7.2.2.v20101205/jetty-webapp-7.2.2.v20101205.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-webapp/7.2.2.v20101205/jetty-webapp-7.2.2.v20101205-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-xml/7.2.2.v20101205/jetty-xml-7.2.2.v20101205.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-xml/7.2.2.v20101205/jetty-xml-7.2.2.v20101205-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar" sourcepath="M2_REPO/junit/junit/4.8.2/junit-4.8.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.7/snakeyaml-1.7.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6.jar" sourcepath="M2_REPO/org/springframework/spring-aop/2.5.6/spring-aop-2.5.6-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE-sources.jar"/>
