@@ -32,17 +32,17 @@ And blast it::
 	>> Listening on 0.0.0.0:8080
 	
 License
-=======
+^^^^^^^
 
 Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html	
 	
 Forum
-=====
+^^^^^
 
 http://groups.google.com/group/napalm4j		
 	
 Maven
-=====
+^^^^^
 
 Get it via our custom Maven repo::	
 	
@@ -80,5 +80,21 @@ Available plugins
 * Freemarker (TODO)
 * JMustache (TODO)
 * JHaml (TODO)
-* Scalate (TODO)     
+* Scalate (TODO)    
+
+TODO
+====
+
+Short-term development plans:
+
+* add common config file (napalm.yml) to allow externalizing things like ports, DB connections, etc.
+* add easy creation of JNDI datasources and resources via napalm.yml
+* easy integration of JPA / Hibernate with full @Transactional support pre-configured
+* integrate Spring Security
+* JHaml template plugin (HAML being the most cutting edge template technology right now)
+
+Long-term development plans:
+
+* allow auto-creation of REST services for JPA entities, similar to some of the libraries avaliable for Python Django
+
 		
