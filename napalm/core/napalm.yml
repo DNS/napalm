@@ -1,0 +1,14 @@
+port: 8080
+
+databases:
+  - default:
+    - url: jdbc:mysql://localhost:3306/napalm
+    - user: user
+    - password: pwd
+  - secondary:
+    - url: jdbc:mysql://localhost:3306/napalm2
+    - user: user
+    - password: pwd
+
+params:
+   - some_path: /home/jacekf/path_to_file/file.tst
