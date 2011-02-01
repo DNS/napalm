@@ -16,8 +16,7 @@ public class Napalm {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Napalm.class);
 	private static AnnotationConfigWebApplicationContext ctx = null;
-	
-	
+
 	/**
 	 * Starts Napalm, bu does not join to it
 	 * 
@@ -36,12 +35,12 @@ public class Napalm {
 
 			web.init(port, apps);
 			web.start();
-			
+
 			LOG.info("Successfully started Napalm on port " + port);
-			
+
 			System.out.println("== Napalm has taken the stage...");
 			System.out.println(">> Listening on 0.0.0.0:" + port);
-			
+
 			return web;
 
 		} catch (RuntimeException ex) {
@@ -50,7 +49,7 @@ public class Napalm {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	/**
 	 * Runs Napalm
 	 * 
@@ -59,7 +58,7 @@ public class Napalm {
 	 */
 	public static void run(int port, Class<?>... apps) {
 		try {
-			start(port,apps).join();
+			start(port, apps).join();
 		} catch (RuntimeException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -73,7 +72,9 @@ public class Napalm {
 	public static void stop() {
 		NapalmServer web = ctx.getBean(NapalmServer.class);
 		try {
+			System.out.println("== Napalm is exiting the stage...");
 			web.stop();
+			System.out.println(">> Napalm has left the building.");
 		} catch (RuntimeException ex) {
 			throw ex;
 		} catch (Exception e) {

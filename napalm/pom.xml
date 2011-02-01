@@ -15,7 +15,8 @@
 		<module>napalm-freemarker</module>
 	</modules>
 	<properties>
-		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<org.springframework.version>3.0.5.RELEASE
+		</org.springframework.version>
 	</properties>
 
 	<licenses>
@@ -85,6 +86,11 @@
 				<version>1.5</version>
 			</dependency>
 			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-json</artifactId>
+				<version>1.5</version>
+			</dependency>
+			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-jaxrs</artifactId>
 				<version>1.6.4</version>
@@ -134,6 +140,12 @@
 				<groupId>org.yaml</groupId>
 				<artifactId>snakeyaml</artifactId>
 				<version>1.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>0.9.3</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -190,6 +202,10 @@
 		<repository>
 			<id>Java.net</id>
 			<url>http://download.java.net/maven/2/</url>
+		</repository>
+		<repository>
+			<id>projectlombok.org</id>
+			<url>http://projectlombok.org/mavenrepo</url>
 		</repository>
 	</repositories>
 
