@@ -10,7 +10,7 @@ run::
 	@Path("/")
 	public class NapalmVelocityTest {
 	
-		@Autowired
+			@Autowired
 		private NapalmVelocityEngine velocity;
 	
 	    @GET()
@@ -26,7 +26,7 @@ run::
 	}
 
 	
-and get your Napalm served instantly::
+and get your Napalm REST fix instantly:
 
 	curl http://localhost:8080/johndoe
 	
