@@ -35,7 +35,7 @@ Overview
 ========	
 	
 :License:
-	Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html	
+	http://www.apache.org/licenses/LICENSE-2.0.html	
 	
 :Forum:
 	http://groups.google.com/group/napalm4j		
@@ -57,6 +57,27 @@ Get it via our custom Maven repo::
                 <url>http://javabuilders.googlecode.com/svn/repo</url> 
         </repository> 
     </repositories>
+     
+Testing with BDD
+================
+
+Java is a great language for writing performant server-side applications.
+
+It is however, a *horrible* language for writing unit tests. A terse, tight dynamic language like Python
+or Ruby is a much better choice for this. Once you experience BDD with tools such as Freshen, Lettuce
+or Cucumber, it is hard to go back to testing with JUnit again.
+
+Hence, Napalm provides a simple convenience class *BddTester* that allows to launch BDD stories
+from a single JUnit test (for better integration with existing build systems).
+
+:Example unit test:
+	https://github.com/jacek99/Napalm/blob/master/napalm/core/src/test/java/com/github/napalm/test/CoreTest.java
+	
+:Example BDD tests:
+	https://github.com/jacek99/Napalm/blob/master/napalm/core/src/test/python/features/napalm.feature
+	https://github.com/jacek99/Napalm/blob/master/napalm/core/src/test/python/features/steps.py
+	
+**JUnit = legacy**. The faster you try out BDD the better off you will be.	
      
 Template Plugins
 ================
