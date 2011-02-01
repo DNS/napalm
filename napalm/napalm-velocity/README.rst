@@ -3,6 +3,8 @@ Napalm Velocity Plugin
 
 Just include *NapalmVelocityEngine.class* in the list of apps to run::
 
+..code::
+
 	@Service
 	@Path("/")
 	public class NapalmVelocityTest {
