@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableMap;
 
 @Service
 @Path("/")
-public class NapalmVelocityTest {
+public class NapalmVelocityTestApp {
 
 	@Autowired
 	private NapalmVelocityEngine velocity;
@@ -25,6 +25,6 @@ public class NapalmVelocityTest {
 	}
 
 	public static void main(String[] args) {
-		Napalm.run(8080, NapalmVelocityTest.class, NapalmVelocityEngine.class);
+		Napalm.run(8080, NapalmVelocityTestApp.class, NapalmVelocityEngine.class);
 	}
 }
