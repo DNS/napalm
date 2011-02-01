@@ -1,9 +1,9 @@
 Napalm Velocity Plugin
 ======================
 
-Just include *NapalmVelocityEngine.class* in the list of apps to run:
+Just include *NapalmVelocityEngine.class* in the list of apps to run
 
-.. code::
+..code::
 
 	@Service
 	@Path("/")
