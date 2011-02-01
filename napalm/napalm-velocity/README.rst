@@ -1,9 +1,9 @@
 Napalm Velocity Plugin
 ======================
 
-Just include *NapalmVelocityEngine.class* in the list of apps to run::
+.. highlight:: java
 
-``
+Just include *NapalmVelocityEngine.class* in the list of apps to run::
 
 	@Service
 	@Path("/")
@@ -24,7 +24,6 @@ Just include *NapalmVelocityEngine.class* in the list of apps to run::
         }
 	}
 
-``	
 	
 and get your Napalm served instantly::
 
