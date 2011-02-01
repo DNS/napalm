@@ -63,9 +63,10 @@ Testing with BDD
 
 Java is a great language for writing performant server-side applications.
 
-It is however, a *horrible* language for writing unit tests. A terse, tight dynamic language like Python
-or Ruby is a much better choice for this. Once you experience BDD with tools such as Freshen, Lettuce
-or Cucumber, it is hard to go back to testing with JUnit again.
+It is however, a *horrible* language for writing integration unit tests (especially for REST apps, which are so easily testable). 
+A terse, tight dynamic language like Python or Ruby is a much better choice for this. 
+
+Once you experience BDD with tools such as Freshen, Lettuce or Cucumber, it is hard to go back to testing with JUnit again.
 
 Hence, Napalm provides a simple convenience class *BddTester* that allows to launch BDD stories
 from a single JUnit test (for better integration with existing build systems).
