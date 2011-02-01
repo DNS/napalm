@@ -1,4 +1,4 @@
-.. image:: napalm.png
+.. image:: Napalm/raw/master/napalm.png
 
 =================================
 NAPALM : Death to Java complexity
