@@ -31,7 +31,7 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 
-.. contents
+.. contents:
 	
 Overview
 ========	
