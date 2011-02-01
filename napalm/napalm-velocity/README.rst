@@ -1,9 +1,9 @@
 Napalm Velocity Plugin
 ======================
 
-Just include *NapalmVelocityEngine.class* in the list of apps to run
+Just include *NapalmVelocityEngine.class* in the list of apps to run::
 
-..code::
+``
 
 	@Service
 	@Path("/")
@@ -23,6 +23,8 @@ Just include *NapalmVelocityEngine.class* in the list of apps to run
         	Napalm.run(8080, NapalmVelocityTest.class, NapalmVelocityEngine.class);
         }
 	}
+
+``	
 	
 and get your Napalm served instantly::
 
