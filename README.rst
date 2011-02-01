@@ -1,8 +1,8 @@
-.. image:: Napalm/raw/master/napalm.png
-
 =================================
 NAPALM : Death to Java complexity
 =================================
+
+.. image:: Napalm/raw/master/napalm.png
 
 A Java web microframework, inspired by Sinatra (http://www.sinatrarb.com).
 
