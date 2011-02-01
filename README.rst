@@ -1,3 +1,5 @@
+.. image:: napalm.png
+
 =================================
 NAPALM : Death to Java complexity
 =================================
