@@ -31,15 +31,14 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 	
-License
-================
-
-Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html	
+Overview
+========	
 	
-Forum
-================
-
-http://groups.google.com/group/napalm4j		
+:License:
+	Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html	
+	
+:Forum:
+	http://groups.google.com/group/napalm4j		
 	
 Maven
 ================
