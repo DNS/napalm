@@ -1,6 +1,6 @@
 Feature: Napalm Core functionality
-	A user should be able to reach REST resources
-	server by a Napalm server
+	A user should be able to access REST resources
+	served by a Napalm application
 	
 	Background:
 		Given base URL 'http://localhost:8080'
