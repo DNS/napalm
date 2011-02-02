@@ -2,7 +2,6 @@ package com.github.napalm;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import lombok.Getter;
@@ -121,12 +120,6 @@ public class Napalm {
 			packages.add(app.getPackage().getName());
 		}
 		ctx.setConfigLocations(packages.toArray(new String[packages.size()]));
-
-		//register all the resources
-		for (Entry<String, Object> entry : Napalm.getResources().entrySet()) {
-			LOG.debug("Adding {} as '{}' to Spring context", entry.getValue(), entry.getKey());
-			ctx.getBeanFactory().registerSingleton(entry.getKey(), entry.getValue());
-		}
 		
 		ctx.refresh();
 		ctx.registerShutdownHook();
