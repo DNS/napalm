@@ -1,6 +1,5 @@
 package com.github.napalm.spring;
 
-import java.util.List;
 import java.util.Map.Entry;
 
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Service;
 
 import com.github.napalm.Napalm;
-import com.google.common.collect.Lists;
 
 /**
  * Adds the resources to the specified context
@@ -22,8 +20,6 @@ import com.google.common.collect.Lists;
 public class NapalmBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(NapalmBeanFactoryPostProcessor.class);
-
-	private List<Class<?>> entities = Lists.newLinkedList();
 
 	/*
 	 * (non-Javadoc)
@@ -37,7 +33,5 @@ public class NapalmBeanFactoryPostProcessor implements BeanFactoryPostProcessor 
 			LOG.debug("Adding {} as '{}' to Spring context", entry.getValue(), entry.getKey());
 			beanFactory.registerSingleton(entry.getKey(), entry.getValue());
 		}
-
-		// beanFactory.getBeansWithAnnotation(annotationType)
 	}
 }
