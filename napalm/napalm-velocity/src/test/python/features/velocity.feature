@@ -1,3 +1,5 @@
+Using step definitions from: '../../../../../core/src/test/python/features/steps'  #reuse same core steps.py
+
 Feature: Napalm Velocity support
     As a user I want to be able to access REST resources
     That serve pages generated via the Apache Velocity template engine
