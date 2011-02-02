@@ -1,4 +1,4 @@
-package com.github.napalm.test;
+package com.github.napalm.test.app;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

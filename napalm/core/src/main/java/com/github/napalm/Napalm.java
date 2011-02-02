@@ -1,13 +1,19 @@
 package com.github.napalm;
 
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import lombok.Getter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import com.github.napalm.spring.NapalmServer;
+import com.github.napalm.utils.DataSourceUtils;
+import com.google.common.collect.Maps;
 
 /**
  * Main entry point for Napalm apps
@@ -17,6 +23,28 @@ public class Napalm {
 	private static final Logger LOG = LoggerFactory.getLogger(Napalm.class);
 	private static AnnotationConfigWebApplicationContext ctx = null;
 
+	
+	@Getter
+	private static final Map<String, Object> resources = Maps.newHashMap();
+
+	/**
+	 * Adds a runtime resource (that can be accessed in Spring via @Resource). Should be executed BEFORE the start() or run()
+	 * @param key Resource key
+	 * @param resource Object or String. If String, can be in "<jdbc url>,user,password" format, which will automatically create a datasource for use in the app
+	 */
+	public static void addResource(String key, Object resource) {
+		if (resource instanceof String) {
+			//auto-create DataSource if required
+			if (DataSourceUtils.isDataSource((String)resource)) {
+				resources.put(key, DataSourceUtils.createDataSource((String)resource));
+			} else {
+				resources.put(key, resource);
+			}
+		} else {
+			resources.put(key, resource);
+		}
+	}
+	
 	/**
 	 * Starts Napalm, bu does not join to it
 	 * 
@@ -84,15 +112,22 @@ public class Napalm {
 
 	private static AnnotationConfigWebApplicationContext initSpring(Class<?>... apps) {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+		ctx.refresh();
+		
 		// register Napalm and app-specific Spring beans
 		Set<String> packages = new HashSet<String>();
 		packages.add(NapalmServer.class.getPackage().getName());
 		for (Class<?> app : apps) {
 			packages.add(app.getPackage().getName());
 		}
-
 		ctx.setConfigLocations(packages.toArray(new String[packages.size()]));
 
+		//register all the resources
+		for (Entry<String, Object> entry : Napalm.getResources().entrySet()) {
+			LOG.debug("Adding {} as '{}' to Spring context", entry.getValue(), entry.getKey());
+			ctx.getBeanFactory().registerSingleton(entry.getKey(), entry.getValue());
+		}
+		
 		ctx.refresh();
 		ctx.registerShutdownHook();
 		ctx.start();

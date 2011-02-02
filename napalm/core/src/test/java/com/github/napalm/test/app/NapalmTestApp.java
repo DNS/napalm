@@ -1,13 +1,16 @@
-package com.github.napalm.test;
+package com.github.napalm.test.app;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.napalm.Napalm;
@@ -19,6 +22,9 @@ import com.github.napalm.Napalm;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class NapalmTestApp {
+
+	@Resource(name = "db")
+	private DataSource db;
 
 	@GET
 	public String get() {
@@ -38,8 +44,15 @@ public class NapalmTestApp {
 		return users;
 	}
 
-	public static void main(String[] args) {
-		Napalm.run(8080, NapalmTestApp.class);
+	@GET
+	@Path("/db")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getDbInfo() {
+		return String.valueOf(new JdbcTemplate(db).queryForInt("SELECT COUNT(*) FROM INFORMATION_SCHEMA.CATALOGS"));
 	}
 
+	public static void main(String[] args) {
+		Napalm.addResource("db", "jdbc:h2:mem:db1");
+		Napalm.run(8080, NapalmTestApp.class);
+	}
 }

@@ -33,7 +33,7 @@ And blast it::
 	== Napalm has taken the stage...
 	>> Listening on 0.0.0.0:8080
 	
-Overview
+Links
 ========	
 	
 :License:
@@ -42,24 +42,35 @@ Overview
 :Forum:
 	http://groups.google.com/group/napalm4j		
 	
-Maven
-================
 
-Get it via our custom Maven repo::	
+Connecting to databases
+=======================
+
+Tired of fiddling with JNDI and datasources? No problem, just specify the JDBC connection string
+in the '<url>,<user>,<password>' format (e.g. *"jdbc:mysql://localhost:3306/napalm,user,password"*)
+and Napalm with auto-create a DataSource for you and wire it into the context::
+
+	@Service
+	@Path("/")
+	@Produces(MediaType.TEXT_PLAIN)
+	public class NapalmTestApp {
 	
-    <dependency> 
-            <groupId>napalm</groupId> 
-            <artifactId>napalm</artifactId> 
-            <version>0.1-SNAPSHOT</version> 
-    </dependency>
-    
-    <repositories> 
-        <repository> 
-                <id>javabuilders</id> 
-                <url>http://javabuilders.googlecode.com/svn/repo</url> 
-        </repository> 
-    </repositories>
-     
+		@Resource(name = "db")
+		private DataSource db;
+	
+		@GET @Path("/db") 
+		public String getDbInfo() {
+			return String.valueOf(new JdbcTemplate(db).queryForInt("SELECT COUNT(*) FROM INFORMATION_SCHEMA.CATALOGS"));
+		}
+	
+		public static void main(String[] args) {
+			Napalm.addResource("db", "jdbc:h2:mem:db1");
+			Napalm.run(8080, NapalmTestApp.class);
+		}
+	}
+
+Shortly we will add support for auto-loading resources from an external *napalm.yml* file.
+        
 Testing with BDD
 ================
 
@@ -104,6 +115,24 @@ Available plugins
 * JMustache (TODO)
 * JHaml (TODO)
 * Scalate (TODO)    
+
+Maven
+================
+
+Get it via our custom Maven repo::	
+	
+    <dependency> 
+            <groupId>napalm</groupId> 
+            <artifactId>napalm</artifactId> 
+            <version>0.1-SNAPSHOT</version> 
+    </dependency>
+    
+    <repositories> 
+        <repository> 
+                <id>javabuilders</id> 
+                <url>http://javabuilders.googlecode.com/svn/repo</url> 
+        </repository> 
+    </repositories>
 
 TODO
 ====
