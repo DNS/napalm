@@ -39,6 +39,9 @@ Links
 :License:
 	http://www.apache.org/licenses/LICENSE-2.0.html	
 	
+:Blog:	
+	http://napalm4j.blogspot.com
+	
 :Forum:
 	http://groups.google.com/group/napalm4j		
 	
