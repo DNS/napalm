@@ -25,9 +25,9 @@ import com.google.common.collect.Maps;
  * Napalm Velocity engine, pre-configured for fetching templates from classpath "templates" folder
  */
 @Service
-public class NapalmVelocityEngine extends VelocityEngine implements LogChute, TemplatePlugin {
+public class NapalmVelocity extends VelocityEngine implements LogChute, TemplatePlugin {
 
-	private static final Logger LOG = LoggerFactory.getLogger(NapalmVelocityEngine.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NapalmVelocity.class);
 
 	@Autowired
 	private TemplateHandler handler;

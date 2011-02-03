@@ -10,8 +10,8 @@ run::
 	@Path("/")
 	public class NapalmVelocityTest {
 	
-			@Autowired
-		private NapalmVelocityEngine velocity;
+		@Autowired
+		private NapalmVelocity velocity;
 	
 	    @GET()
 	    @Path("/{user}")
@@ -21,7 +21,7 @@ run::
 	    }
 	    
 	    public static void main(String[] args) {
-	    	Napalm.run(8080, NapalmVelocityTest.class, NapalmVelocityEngine.class);
+	    	Napalm.run(8080, NapalmVelocityTest.class, NapalmVelocity.class);
 	    }
 	}
 

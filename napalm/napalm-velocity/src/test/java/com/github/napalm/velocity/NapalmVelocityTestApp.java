@@ -16,7 +16,7 @@ import com.github.napalm.Napalm;
 public class NapalmVelocityTestApp {
 
 	@Autowired
-	private NapalmVelocityEngine velocity;
+	private NapalmVelocity velocity;
 
 	@GET()
 	@Path("/{user}")
@@ -26,6 +26,6 @@ public class NapalmVelocityTestApp {
 	}
 
 	public static void main(String[] args) {
-		Napalm.run(8080, NapalmVelocityTestApp.class, NapalmVelocityEngine.class);
+		Napalm.run(8080, NapalmVelocityTestApp.class, NapalmVelocity.class);
 	}
 }
