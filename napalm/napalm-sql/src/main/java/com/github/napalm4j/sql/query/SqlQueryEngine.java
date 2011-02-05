@@ -3,6 +3,7 @@ package com.github.napalm4j.sql.query;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,9 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.javatuples.Pair;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.github.napalm.spring.query.CallableAdaptor;
 import com.github.napalm.spring.query.QueryEngine;
@@ -24,7 +24,7 @@ import com.github.napalm.utils.QueryUtils;
  * @author jacekf
  * 
  */
-public class SqlQueryEngine implements QueryEngine<DataSource> {
+public class SqlQueryEngine implements QueryEngine<DataSource, Map<String, Object>> {
 
 	private ConcurrentHashMap<DataSource, JdbcTemplate> cachedTemplates = new ConcurrentHashMap<DataSource, JdbcTemplate>();
 	private ConcurrentHashMap<String, String> queries = new ConcurrentHashMap<String, String>();
@@ -48,35 +48,40 @@ public class SqlQueryEngine implements QueryEngine<DataSource> {
 	 * @see com.github.napalm.spring.query.QueryEngine#query(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public <T> Pair<String, Callable<T>> query(final DataSource dataSource, String queryName, Object... parameters) {
-		CallableAdaptor<JdbcTemplate, T> c = new CallableAdaptor<JdbcTemplate, T>() {
+	public Pair<String, Callable<Map<String, Object>>> query(DataSource dataSource, String queryName, Object... parameters) {
+		CallableAdaptor<JdbcTemplate, Map<String, Object>> c = new CallableAdaptor<JdbcTemplate, Map<String, Object>>() {
 			@Override
-			public T call() throws Exception {
-				ResultSetExtractor<T> r = new ResultSetExtractor<T>() {
-					@Override
-					public T extractData(ResultSet rs) throws SQLException, DataAccessException {
-						// TODO Auto-generated method stub
-						return null;
-					}
-				};
-				return getDataInterface().query(getQueryValue(), getParameters(), r);
+			public Map<String, Object> call() throws Exception {
+				return getDataInterface().queryForMap(getQueryValue(), getParameters());
 			}
 		};
 		// avoids using final variables
 		c.setDataInterface(getTemplate(dataSource));
 		c.setQueryValue(queries.get(queryName));
 
-		return new Pair<String, Callable<T>>(queryName, c);
+		return new Pair<String, Callable<Map<String, Object>>>(queryName, c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.github.napalm.spring.query.QueryEngine#queryForList(java.lang.Object, java.lang.String, java.lang.Object[])
-	 */
 	@Override
-	public <T> Pair<String, Callable<List<T>>> queryForList(DataSource dataSource, String queryName, Object... parameters) {
-		// TODO Auto-generated method stub
-		return null;
+	public Pair<String, Callable<List<Map<String, Object>>>> queryForList(DataSource dataSource, String queryName,
+			Object... parameters) {
+		CallableAdaptor<JdbcTemplate, List<Map<String, Object>>> c = new CallableAdaptor<JdbcTemplate, List<Map<String, Object>>>() {
+			@Override
+			public List<Map<String, Object>> call() throws Exception {
+				RowMapper<Map<String, Object>> rm = new RowMapper<Map<String, Object>>() {
+					@Override
+					public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+						return null;
+					}
+				};
+				return null;
+			}
+		};
+		// avoids using final variables
+		c.setDataInterface(getTemplate(dataSource));
+		c.setQueryValue(queries.get(queryName));
+
+		return new Pair<String, Callable<List<Map<String, Object>>>>(queryName, c);
 	}
 
 }

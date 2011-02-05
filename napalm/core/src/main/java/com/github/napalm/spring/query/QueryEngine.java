@@ -11,7 +11,7 @@ import org.javatuples.Pair;
  * @author jacekf
  * 
  */
-public interface QueryEngine<DS> {
+public interface QueryEngine<DS, T> {
 
 	/**
 	 * Returns a callable that returns a single object
@@ -21,7 +21,7 @@ public interface QueryEngine<DS> {
 	 * @param parameters
 	 * @return
 	 */
-	public <T extends Object> Pair<String, Callable<T>> query(DS dataSource, String queryName, Object... parameters);
+	public Pair<String, Callable<T>> query(DS dataSource, String queryName, Object... parameters);
 
 	/**
 	 * Returns a callable that returns a list of objects of the same type
@@ -31,6 +31,6 @@ public interface QueryEngine<DS> {
 	 * @param parameters
 	 * @return
 	 */
-	public <T extends Object> Pair<String, Callable<List<T>>> queryForList(DS dataSource, String queryName, Object... parameters);
+	public Pair<String, Callable<List<T>>> queryForList(DS dataSource, String queryName, Object... parameters);
 
 }
