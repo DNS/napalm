@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.github.napalm4j.sql.query.QueryUtils;
+import com.github.napalm.utils.QueryUtils;
 
 /**
  * Unit test for simple App.
@@ -15,7 +15,7 @@ public class NapalmSqlTest {
 
 	@Test
 	public void testUtilsParsing() {
-		Map<String, String> map = QueryUtils.parseQueries();
+		Map<String, String> map = QueryUtils.parseQueries("sql");
 
 		assertEquals(4, map.size());
 		assertEquals("SELECT * FROM\nUSERS", map.get("allUsers").trim());

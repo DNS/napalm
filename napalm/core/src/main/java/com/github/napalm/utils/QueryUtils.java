@@ -1,4 +1,4 @@
-package com.github.napalm4j.sql.query;
+package com.github.napalm.utils;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -21,15 +21,29 @@ import com.google.common.collect.Maps;
 public class QueryUtils {
 
 	/**
+	 * Query name can be either a straight name e.g. "allUsers" or with an alias "allUsers as users"
+	 * 
+	 * @param queryName Name or the specified alias
+	 */
+	public static String getQueryId(String queryName) {
+		int pos = queryName.indexOf(" as ");
+		if (pos > 0) {
+			return queryName.substring(pos + 4);
+		} else {
+			return queryName;
+		}
+	}
+
+	/**
 	 * Parses all the classpath:sql/*.yml files it can find in the classpath and build a map of pre-defined queries
 	 */
 	@SuppressWarnings("unchecked")
-	public static Map<String, String> parseQueries() {
+	public static Map<String, String> parseQueries(String classpathRoot) {
 		Map<String, String> map = Maps.newLinkedHashMap();
 
 		try {
 			Resource[] resources = new PathMatchingResourcePatternResolver(ClassLoader.getSystemClassLoader())
-					.getResources("classpath*:sql/**/*.yml");
+					.getResources("classpath*:" + classpathRoot + "/**/*.yml");
 
 			for (Resource resource : resources) {
 				Yaml parser = new Yaml();
