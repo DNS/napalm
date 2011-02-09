@@ -2,3 +2,8 @@ Tables:
 <#list tables as table>
         ${table.TABLE_NAME}
 </#list>
+
+Columns:
+<#list columns as column>
+        ${column.COLUMN_NAME}
+</#list>

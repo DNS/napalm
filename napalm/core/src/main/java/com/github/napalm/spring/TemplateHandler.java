@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +21,9 @@ public class TemplateHandler {
 
 	private static final Logger LOG = LoggerFactory.getLogger(TemplateHandler.class);
 
+	@Autowired
+	private NapalmConfig config;
+
 	/**
 	 * Renders the template logic and sanitizes the error to avoid showing internal details
 	 * 
@@ -30,6 +34,9 @@ public class TemplateHandler {
 		try {
 			return t.call();
 		} catch (Exception ex) {
+			if (config.isInDevelopmentMode()) {
+				System.out.println(ex.getMessage());
+			}
 			LOG.error(ex.getMessage(), ex);
 			throw new WebApplicationException(Response.serverError()
 					.entity("Internal server template error. See server log for details.").build());

@@ -37,7 +37,7 @@ public class FreemarkerTestApp {
 	@Path("/db")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String db(@PathParam("user") String user) {
-		return freemarker.render("db.txt", sql.queryForList(db, "tables"));
+		return freemarker.render("db.txt", sql.queryForList(db, "tables"), sql.queryForList(db, "columns"));
 	}
 
 	public static void main(String[] args) {

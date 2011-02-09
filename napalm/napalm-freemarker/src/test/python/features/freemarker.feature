@@ -23,34 +23,18 @@ Feature: Napalm Freemarker support
         And expect text equivalent to
         	"""
 			Tables:
-				HELP
-				VIEWS
-				CONSTRAINTS
-				RIGHTS
-				FUNCTION_COLUMNS
-				SETTINGS
-				TABLE_TYPES
-				SCHEMATA
-				INDEXES
-				IN_DOUBT
-				CROSS_REFERENCES
-				USERS
-				SESSIONS
-				TABLE_PRIVILEGES
-				CONSTANTS
-				DOMAINS
-				TABLES
-				COLUMNS
-				COLLATIONS
-				ROLES
-				SESSION_STATE
-				SEQUENCES
-				FUNCTION_ALIASES
-				TYPE_INFO
-				TRIGGERS
-				LOCKS
-				COLUMN_PRIVILEGES
 				CATALOGS
+				COLLATIONS
+				COLUMNS
+				COLUMN_PRIVILEGES
+				CONSTANTS
+			
+			Columns:
+				ADMIN
+				ALIAS_CATALOG
+				ALIAS_NAME
+				ALIAS_SCHEMA
+				ASC_OR_DESC
 			"""
         	
     
