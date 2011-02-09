@@ -21,20 +21,6 @@ import com.google.common.collect.Maps;
 public class QueryUtils {
 
 	/**
-	 * Query name can be either a straight name e.g. "allUsers" or with an alias "allUsers as users"
-	 * 
-	 * @param queryName Name or the specified alias
-	 */
-	public static String getQueryId(String queryName) {
-		int pos = queryName.indexOf(" as ");
-		if (pos > 0) {
-			return queryName.substring(pos + 4);
-		} else {
-			return queryName;
-		}
-	}
-
-	/**
 	 * Parses all the classpath:sql/*.yml files it can find in the classpath and build a map of pre-defined queries
 	 */
 	@SuppressWarnings("unchecked")

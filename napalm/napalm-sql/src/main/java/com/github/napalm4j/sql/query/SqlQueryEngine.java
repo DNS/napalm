@@ -10,12 +10,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
-import org.javatuples.Pair;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.github.napalm.spring.query.CallableAdaptor;
-import com.github.napalm.spring.query.QueryEngine;
+import com.github.napalm.interfaces.CallableOperation;
+import com.github.napalm.interfaces.DataProvider;
 import com.github.napalm.utils.QueryUtils;
 
 /**
@@ -24,7 +23,7 @@ import com.github.napalm.utils.QueryUtils;
  * @author jacekf
  * 
  */
-public class SqlQueryEngine implements QueryEngine<DataSource, Map<String, Object>> {
+public class SqlQueryEngine implements DataProvider<DataSource, Map<String, Object>> {
 
 	private ConcurrentHashMap<DataSource, JdbcTemplate> cachedTemplates = new ConcurrentHashMap<DataSource, JdbcTemplate>();
 	private ConcurrentHashMap<String, String> queries = new ConcurrentHashMap<String, String>();
@@ -48,29 +47,31 @@ public class SqlQueryEngine implements QueryEngine<DataSource, Map<String, Objec
 	 * @see com.github.napalm.spring.query.QueryEngine#query(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public Pair<String, Callable<Map<String, Object>>> query(DataSource dataSource, String queryName, Object... parameters) {
-		CallableAdaptor<JdbcTemplate, Map<String, Object>> c = new CallableAdaptor<JdbcTemplate, Map<String, Object>>() {
+	public Callable<Map<String, Object>> query(DataSource dataSource, String queryName, Object... parameters) {
+		CallableOperation<JdbcTemplate, Map<String, Object>> c = new CallableOperation<JdbcTemplate, Map<String, Object>>() {
 			@Override
 			public Map<String, Object> call() throws Exception {
-				return getDataInterface().queryForMap(getQueryValue(), getParameters());
+				return getDataInterface().queryForMap(getValue(), getParameters());
 			}
 		};
 		// avoids using final variables
+		c.setName(queryName);
 		c.setDataInterface(getTemplate(dataSource));
-		c.setQueryValue(queries.get(queryName));
+		c.setValue(queries.get(queryName));
+		c.setParameters(parameters);
 
-		return new Pair<String, Callable<Map<String, Object>>>(queryName, c);
+		return c;
 	}
 
 	@Override
-	public Pair<String, Callable<List<Map<String, Object>>>> queryForList(DataSource dataSource, String queryName,
-			Object... parameters) {
-		CallableAdaptor<JdbcTemplate, List<Map<String, Object>>> c = new CallableAdaptor<JdbcTemplate, List<Map<String, Object>>>() {
+	public Callable<List<Map<String, Object>>> queryForList(DataSource dataSource, String queryName, Object... parameters) {
+		CallableOperation<JdbcTemplate, List<Map<String, Object>>> c = new CallableOperation<JdbcTemplate, List<Map<String, Object>>>() {
 			@Override
 			public List<Map<String, Object>> call() throws Exception {
 				RowMapper<Map<String, Object>> rm = new RowMapper<Map<String, Object>>() {
 					@Override
 					public Map<String, Object> mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO
 						return null;
 					}
 				};
@@ -78,10 +79,12 @@ public class SqlQueryEngine implements QueryEngine<DataSource, Map<String, Objec
 			}
 		};
 		// avoids using final variables
+		c.setName(queryName);
 		c.setDataInterface(getTemplate(dataSource));
-		c.setQueryValue(queries.get(queryName));
+		c.setValue(queries.get(queryName));
+		c.setParameters(parameters);
 
-		return new Pair<String, Callable<List<Map<String, Object>>>>(queryName, c);
+		return c;
 	}
 
 }

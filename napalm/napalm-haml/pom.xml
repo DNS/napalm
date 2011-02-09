@@ -12,12 +12,17 @@
 	<artifactId>napalm-haml</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Napalm HAML plugin</name>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>napalm</groupId>
 			<artifactId>napalm</artifactId>
 			<version>${parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cardlife</groupId>
+			<artifactId>jhaml</artifactId>
+			<version>0.1.3</version>
 		</dependency>
 	</dependencies>
 	<properties>

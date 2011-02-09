@@ -1,4 +1,4 @@
-package com.github.napalm.spring.query;
+package com.github.napalm.interfaces;
 
 import java.util.concurrent.Callable;
 
@@ -12,9 +12,10 @@ import lombok.Data;
  * 
  */
 @Data
-public abstract class CallableAdaptor<DT,T> implements Callable<T> {
+public abstract class CallableOperation<DT,T> implements Callable<T> {
 
-	private String queryValue;
+	private String name;
+	private String value;
 	private DT dataInterface;
 	private Object[] parameters;
 

@@ -1,17 +1,15 @@
-package com.github.napalm.spring.query;
+package com.github.napalm.interfaces;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.javatuples.Pair;
-
 /**
- * Common inteface for all query engines (SQL, NoSQL, etc.)
+ * Common inteface for all data providers (SQL, NoSQL, etc.)
  * 
  * @author jacekf
  * 
  */
-public interface QueryEngine<DS, T> {
+public interface DataProvider<DS, T> {
 
 	/**
 	 * Returns a callable that returns a single object
@@ -21,7 +19,7 @@ public interface QueryEngine<DS, T> {
 	 * @param parameters
 	 * @return
 	 */
-	public Pair<String, Callable<T>> query(DS dataSource, String queryName, Object... parameters);
+	public Callable<T> query(DS dataSource, String queryName, Object... parameters);
 
 	/**
 	 * Returns a callable that returns a list of objects of the same type
@@ -31,6 +29,6 @@ public interface QueryEngine<DS, T> {
 	 * @param parameters
 	 * @return
 	 */
-	public Pair<String, Callable<List<T>>> queryForList(DS dataSource, String queryName, Object... parameters);
+	public Callable<List<T>> queryForList(DS dataSource, String queryName, Object... parameters);
 
 }
