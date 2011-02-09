@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
  * A Java-Config for common dynamically-created Spring beans
@@ -16,6 +18,7 @@ import org.springframework.context.annotation.Scope;
 public class SpringConfiguration {
 
 	public static final String NAPALM_EXECUTOR = "napalmExecutor";
+	public static final String NAPALM_SCHEDULER = "napalmScheduler";
 
 	/**
 	 * @return A pre-configured executor with a fixed thread pool equal to the number of CPUs on the server
@@ -24,6 +27,15 @@ public class SpringConfiguration {
 	@Scope("singleton")
 	public ExecutorService getNapalmExecutor() {
 		return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+	}
+
+	/**
+	 * @return A pre-configured task scheduler for @Async and @Scheduled tasks
+	 */
+	@Bean(name = NAPALM_SCHEDULER)
+	@Scope("singleton")
+	public TaskScheduler getNapalmScheduler() {
+		return new ThreadPoolTaskScheduler();
 	}
 
 }

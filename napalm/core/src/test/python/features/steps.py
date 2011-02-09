@@ -22,6 +22,10 @@ def then_expect_text(text):
     text = text.replace(r"\n","\n")
     assert_equals(text,scc.content, msg="'%s' != '%s'" % (text,scc.content))
 
+@Then(r"^expect text equivalent to$")
+def then_expect_text_multiline(text):
+    assert_equals(text.strip(),scc.content.strip(), msg="\n'%s'\n!=\n'%s'" % (text.strip(),scc.content.strip()))
+
 @Then("expect JSON equivalent to '(.+)'\s*")
 def then_expect_json(content):
     #sort keys to allow proper comparison

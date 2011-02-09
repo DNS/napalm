@@ -1,0 +1,4 @@
+Tables:
+<#list tables as table>
+        ${table.TABLE_NAME}
+</#list>

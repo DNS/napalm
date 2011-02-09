@@ -2,7 +2,6 @@ package com.github.napalm.spring;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
@@ -24,7 +23,7 @@ import com.github.napalm.utils.QueryUtils;
  * 
  */
 @Service
-public class SqlQueryEngine implements DataProvider<DataSource, Map<String, Object>> {
+public class SqlQueryEngine implements DataProvider<DataSource, JdbcTemplate, Map<String, Object>> {
 
 	@Autowired
 	private NapalmConfig config;
@@ -61,10 +60,10 @@ public class SqlQueryEngine implements DataProvider<DataSource, Map<String, Obje
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.github.napalm.spring.query.QueryEngine#query(java.lang.Object, java.lang.String, java.lang.Object[])
+	 * @see com.github.napalm.interfaces.DataProvider#query(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public Callable<Map<String, Object>> query(DataSource dataSource, String queryName, Object... parameters) {
+	public CallableOperation<JdbcTemplate, Map<String, Object>> query(DataSource dataSource, String queryName, Object... parameters) {
 		CallableOperation<JdbcTemplate, Map<String, Object>> c = new CallableOperation<JdbcTemplate, Map<String, Object>>() {
 			@Override
 			public Map<String, Object> call() throws Exception {
@@ -85,7 +84,8 @@ public class SqlQueryEngine implements DataProvider<DataSource, Map<String, Obje
 	 * @see com.github.napalm.interfaces.DataProvider#queryForList(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public Callable<List<Map<String, Object>>> queryForList(DataSource dataSource, String queryName, Object... parameters) {
+	public CallableOperation<JdbcTemplate, List<Map<String, Object>>> queryForList(DataSource dataSource, String queryName,
+			Object... parameters) {
 		CallableOperation<JdbcTemplate, List<Map<String, Object>>> c = new CallableOperation<JdbcTemplate, List<Map<String, Object>>>() {
 			@Override
 			public List<Map<String, Object>> call() throws Exception {
