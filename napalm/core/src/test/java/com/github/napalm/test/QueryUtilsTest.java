@@ -1,4 +1,4 @@
-package com.github.napalm4j.sql;
+package com.github.napalm.test;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import com.github.napalm.utils.QueryUtils;
 /**
  * Unit test for simple App.
  */
-public class NapalmSqlTest {
+public class QueryUtilsTest {
 
 	@Test
 	public void testUtilsParsing() {

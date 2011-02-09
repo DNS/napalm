@@ -1,4 +1,4 @@
-package com.github.napalm4j.sql.query;
+package com.github.napalm.spring;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.github.napalm.interfaces.CallableOperation;
 import com.github.napalm.interfaces.DataProvider;
-import com.github.napalm.spring.NapalmConfig;
 import com.github.napalm.utils.QueryUtils;
 
 /**
