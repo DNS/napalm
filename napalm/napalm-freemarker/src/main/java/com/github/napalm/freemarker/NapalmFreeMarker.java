@@ -16,6 +16,7 @@ import com.github.napalm.interfaces.TemplateProvider;
 import com.github.napalm.spring.NapalmConfig;
 import com.github.napalm.spring.OperationExecutor;
 import com.github.napalm.spring.TemplateHandler;
+import com.google.common.collect.Maps;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -79,9 +80,12 @@ public class NapalmFreeMarker implements TemplateProvider {
 	 * @see com.github.napalm.interfaces.TemplateProvider#render(java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public String render(String templateName, Object... keyValues) {
-		// TODO Auto-generated method stub
-		return null;
+	public String render(String templateName, Object... keyValuePairs) {
+		Map<String, Object> parameters = Maps.newHashMap();
+		for (int i = 0; i < keyValuePairs.length; i = i + 2) {
+			parameters.put(String.valueOf(keyValuePairs[i]), keyValuePairs[i + 1]);
+		}
+		return render(templateName, parameters);
 	}
 
 	/*
@@ -91,8 +95,11 @@ public class NapalmFreeMarker implements TemplateProvider {
 	 */
 	@Override
 	public <DS, T> String render(String templateName, CallableOperation<DS, T>... queries) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> parameters = Maps.newHashMap();
+		for (CallableOperation<DS, T> query : queries) {
+			parameters.put(query.getName(), query);
+		}
+		return render(templateName, parameters);
 	}
 
 }

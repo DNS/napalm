@@ -1,0 +1,2 @@
+<#include "/header.txt">
+Napalm says hi from ${ip}

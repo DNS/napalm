@@ -1,9 +1,8 @@
+users: 
+    - SELECT * FROM USERS
+    - byUsername: WHERE USERNAME = ?
+    - byBirthDate: WHERE BIRTH_DATE = ?
+    
 allUsers: |
-    SELECT * FROM
-    USERS
-        
-users:
-  base: |
-    SELECT * FROM USERS
-  byUsername: WHERE USERNAME = ?
-  byBirthDate: WHERE BIRTH_DATE = ?
+    SELECT *
+    FROM USERS

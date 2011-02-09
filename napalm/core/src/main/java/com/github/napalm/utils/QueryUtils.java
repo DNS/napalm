@@ -2,10 +2,10 @@ package com.github.napalm.utils;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.yaml.snakeyaml.Yaml;
@@ -37,8 +37,7 @@ public class QueryUtils {
 				while (it.hasNext()) {
 					Object obj = it.next();
 					if (obj instanceof Map) {
-						Map<String, Object> queries = (Map<String, Object>) obj;
-						buildQueries(map, queries, null);
+						buildQueries(map, (Map<String, Object>) obj);
 					} else {
 						throw new RuntimeException("Expected Map from YAML, instead got: " + obj.getClass());
 					}
@@ -54,53 +53,62 @@ public class QueryUtils {
 	}
 
 	/**
-	 * Recursive method to parse all the YAML files
+	 * Builds a list of queries from a single Yaml resource
 	 */
 	@SuppressWarnings("unchecked")
-	private static void buildQueries(Map<String, String> map, Map<String, Object> queries, String currentPrefix) {
-
-		String previousQuery = null;
+	private static void buildQueries(Map<String, String> map, Map<String, Object> queries) {
 
 		for (Entry<String, Object> entry : queries.entrySet()) {
 			if (entry.getValue() instanceof String) {
 				// standalone query
-				String name = getName(currentPrefix, entry.getKey());
-				safePut(map, name, previousQuery, (String) entry.getValue());
+				safePut(map, entry.getKey(), (String) entry.getValue());
 
-				// only the first query in a map is used as the parent for all of them
-				if (previousQuery == null) {
-					previousQuery = (String) entry.getValue();
+			} else if (entry.getValue() instanceof List) {
+				// hierarchical query
+				List<Object> parts = (List<Object>) entry.getValue();
+
+				String rootQuery = null;
+
+				for (int i = 0; i < parts.size(); i++) {
+					if (i == 0) {
+						if (parts.get(0) instanceof String) {
+							rootQuery = (String) parts.get(0);
+							safePut(map, entry.getKey(), rootQuery);
+						} else {
+							throw new RuntimeException("In a hierarchical query, the first element must be a String, instead got "
+									+ parts.get(0));
+						}
+					} else {
+						if (parts.get(i) instanceof Map) {
+							Map<String, Object> childQuery = (Map<String, Object>) parts.get(i);
+							for (Entry<String, Object> childEntry : childQuery.entrySet()) {
+								safePut(map, entry.getKey() + "." + childEntry.getKey(), rootQuery + " " + childEntry.getValue());
+							}
+						} else {
+							throw new RuntimeException(
+									"In a hierarchical query, all the 2nd and higher elements must be a Map, instead got "
+											+ parts.get(i));
+						}
+					}
 				}
 
-			} else if (entry.getValue() instanceof Map) {
 				// hierarchical query
-				String prefix = (currentPrefix != null) ? currentPrefix + "." + entry.getKey() : entry.getKey();
-				buildQueries(map, (Map<String, Object>) entry.getValue(), prefix);
+				// String prefix = (currentPrefix != null) ? currentPrefix + "." + entry.getKey() : entry.getKey();
+				// buildQueries(map, (Map<String, Object>) entry.getValue(), prefix);
 			} else {
-				throw new RuntimeException("Expected String or Map from YAML for key " + entry.getKey() + ", instead got: "
+				throw new RuntimeException("Expected String or List from YAML for key " + entry.getKey() + ", instead got: "
 						+ entry.getValue());
 			}
 		}
 	}
 
-	private static String getName(String currentPrefix, String key) {
-		if (StringUtils.isEmpty(currentPrefix)) {
-			return key;
-		} else {
-			return String.format("%s.%s", currentPrefix, key);
-		}
-	}
-
-	private static void safePut(Map<String, String> map, String key, String currentParentQuery, String query) {
+	private static void safePut(Map<String, String> map, String key, String query) {
 		if (map.containsKey(key)) {
 			throw new RuntimeException("Unable to add query key " + key + " as a query for this key already exists: "
 					+ map.get(key));
 		} else {
-			if (StringUtils.isEmpty(currentParentQuery)) {
-				map.put(key, query);
-			} else {
-				map.put(key, String.format("%s%s", currentParentQuery, query));
-			}
+			map.put(key, query);
 		}
 	}
+
 }

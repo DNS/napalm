@@ -1,4 +1,4 @@
-package com.github.napalm.velocity;
+package com.github.napalm.freemarker;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,11 +7,11 @@ import org.junit.Test;
 import com.github.napalm.Napalm;
 import com.github.napalm.utils.BddTester;
 
-public class VelocityTest {
+public class FreemarkerTest {
 
 	@Before
 	public void before() {
-		Napalm.start(8080, VelocityTestApp.class);
+		Napalm.start(8080, FreemarkerTestApp.class);
 	}
 
 	@After
