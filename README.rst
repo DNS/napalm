@@ -85,8 +85,9 @@ In the classpath */sql* resources folder, e.g.:
 	
 you can create any number of YAML files (*.yml) in the following format:
 ::
-	allUsers: |
-	    SELECT *
+	
+    allUsers: |
+        SELECT *
         FROM USERS
   
     users:
@@ -96,16 +97,17 @@ you can create any number of YAML files (*.yml) in the following format:
        
 This will get parsed by our SQL engine to create 3 separate named SQL queries:
 
-* allUsers: SELECT * FROM USERS
-* users: SELECT * FROM USERS
-* users.byUsername =  SELECT * FROM USERS WHERE USERNAME = ?       
-* byBirthDate =  SELECT * FROM USERS WHERE WHERE BIRTH_DATE = ?
+* *allUsers: SELECT * FROM USERS*
+* *users: SELECT * FROM USERS*
+* *users.byUsername =  SELECT * FROM USERS WHERE USERNAME = ?*       
+* *byBirthDate =  SELECT * FROM USERS WHERE WHERE BIRTH_DATE = ?*
 
 The second hierarchical YAML format allows you to maintain a common SELECT (as the first string in the YAML list) and then just define
 additional WHERE clauses for it. This way you need to update the SELECT only in one place in case of future maintenance and all the
 *child* queries will inherit the change automatically.
 
 Then you can just refer to those queries by name when passing them into a template engine (e.g. Freemarker in the example below):
+::
 
 	@Resource(name = "db") private DataSource db;
 	@Autowired private NapalmFreeMarker freemarker;
