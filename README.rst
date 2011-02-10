@@ -95,7 +95,7 @@ you can create any number of YAML files (*.yml) in the following format:
        - byUsername: WHERE USERNAME = ?
        - byBirthDate: WHERE BIRTH_DATE = ?
        
-This will get parsed by our SQL engine to create 3 separate named SQL queries:
+This will get parsed by our SQL engine to create 4 separate named SQL queries:
 
 * *allUsers: SELECT * FROM USERS*
 * *users: SELECT * FROM USERS*
