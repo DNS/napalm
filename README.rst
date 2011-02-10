@@ -100,7 +100,7 @@ This will get parsed by our SQL engine to create 4 separate named SQL queries:
 * *allUsers: SELECT * FROM USERS*
 * *users: SELECT * FROM USERS*
 * *users.byUsername =  SELECT * FROM USERS WHERE USERNAME = ?*       
-* *byBirthDate =  SELECT * FROM USERS WHERE WHERE BIRTH_DATE = ?*
+* *users.byBirthDate =  SELECT * FROM USERS WHERE WHERE BIRTH_DATE = ?*
 
 The second hierarchical YAML format allows you to maintain a common SELECT (as the first string in the YAML list) and then just define
 additional WHERE clauses for it. This way you need to update the SELECT only in one place in case of future maintenance and all the
