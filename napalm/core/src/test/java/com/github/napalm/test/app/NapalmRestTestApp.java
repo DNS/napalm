@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 import com.github.napalm.Napalm;
 
 /**
- * Unit test for simple App.
+ * Test app where the root is server via JAX-RS and static resources are from the /static context
  */
 @Service
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
-public class NapalmTestApp {
+public class NapalmRestTestApp {
 
 	@Resource(name = "db")
 	private DataSource db;
@@ -53,6 +53,6 @@ public class NapalmTestApp {
 
 	public static void main(String[] args) {
 		Napalm.addResource("db", "jdbc:h2:mem:db1");
-		Napalm.run(8080, NapalmTestApp.class);
+		Napalm.run(8080, NapalmRestTestApp.class);
 	}
 }
