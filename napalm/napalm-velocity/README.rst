@@ -3,7 +3,7 @@ Napalm Velocity Plugin
 
 .. highlight:: java
 
-Just include *NapalmVelocityEngine.class* in the list of apps to 
+Just include *NapalmVelocity.class* in the list of apps to 
 run::
 
 	@Service
