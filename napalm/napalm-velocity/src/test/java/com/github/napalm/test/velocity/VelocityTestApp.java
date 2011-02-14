@@ -1,4 +1,4 @@
-package com.github.napalm.velocity;
+package com.github.napalm.test.velocity;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.napalm.Napalm;
+import com.github.napalm.velocity.NapalmVelocity;
 
 @Service
 @Path("/")

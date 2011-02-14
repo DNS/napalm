@@ -1,4 +1,4 @@
-package com.github.napalm.freemarker;
+package com.github.napalm.test.freemarker;
 
 import org.junit.After;
 import org.junit.Before;

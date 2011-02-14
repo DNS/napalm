@@ -1,4 +1,4 @@
-package com.github.napalm.freemarker;
+package com.github.napalm.test.freemarker;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.napalm.Napalm;
+import com.github.napalm.freemarker.NapalmFreeMarker;
 import com.github.napalm.spring.SqlQueryEngine;
 
 @Service

@@ -1,4 +1,4 @@
-package com.github.napalm.velocity;
+package com.github.napalm.test.velocity;
 
 import org.junit.After;
 import org.junit.Before;
