@@ -1,0 +1,13 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"	version="1.0">
+
+	<persistence-unit name="napalm_invoicing" transaction-type="RESOURCE_LOCAL">
+	
+		<class>com.githum.napalm4j.examples.invoicing.model.Customer</class>
+		<!-- 
+		<class>com.githum.napalm4j.examples.invocing.model.Invoice</class>
+		<class>com.githum.napalm4j.examples.invocing.model.Order</class>
+		<class>com.githum.napalm4j.examples.invocing.model.Product</class>
+		 -->
+	</persistence-unit>
+
+</persistence>

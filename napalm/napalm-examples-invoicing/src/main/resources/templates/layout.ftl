@@ -9,16 +9,19 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<title>Napalm Examples: Invocing App</title>
+<title>Napalm Examples: Invoicing App</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" type="text/css" href="static/default.css" />
+<link rel="stylesheet" type="text/css" href="static/tablesorter.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.tablesorter.pager.js"></script>
 </head>
 <body>
 
 <div id="outer">
-
-<div id="upbg"></div>
 
 <div id="inner">
 
@@ -31,21 +34,19 @@
 
 <div id="menu">
 <ul>
-	<li class="first"><a href="#">Home</a></li>
-	<li><a href="/customers">Customers</a></li>
-	<li><a href="/products">Products</a></li>
-	<li><a href="#">Orders</a></li>
-	<li><a href="#">Invoices</a></li>
-	<li><a href="#">Reports</a></li>
+	<li class="first"><a href="/">Home</a></li>
+	<li><a href="/customer">Customers</a></li>
+	<li><a href="/product">Products</a></li>
+	<li><a href="/order">Orders</a></li>
+	<li><a href="/invoice">Invoices</a></li>
+	<li><a href="/report">Reports</a></li>
 </ul>
 
 <div id="date">Served by Napalm</div>
 </div>
 
 
-<div id="primarycontent"><!-- primary content start -->
-
-<#nested>
+<div id="primarycontent"><!-- primary content start --> <#nested>
 
 </div>
 
@@ -61,8 +62,11 @@
 <h3>Topics</h3>
 <div class="content">
 <ul class="linklist">
-	<li class="first"><a href="https://github.com/jacek99/Napalm">Napalm Documentation</a></li>
-	<li><a href="http://napalm4j.blogspot.com/2011/02/connecting-to-database-with-napalm.html">Connecting to databases using Napalm</a></li>
+	<li class="first"><a href="https://github.com/jacek99/Napalm">Napalm
+	Documentation</a></li>
+	<li><a
+		href="http://napalm4j.blogspot.com/2011/02/connecting-to-database-with-napalm.html">Connecting
+	to databases using Napalm</a></li>
 </ul>
 </div>
 

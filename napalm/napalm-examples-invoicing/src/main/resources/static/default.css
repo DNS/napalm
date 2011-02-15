@@ -13,7 +13,7 @@ margin: 0px;
 
 body
 {
-background: #F9F9F7 url('images/a1.gif') repeat-x;
+background: beige;
 font-size: 11px;
 font-family: "trebuchet ms", helvetica, sans-serif;
 color: #8C8C73;
@@ -94,7 +94,7 @@ padding-top: 0px;
 position: absolute;
 top: 0px;
 left: 0px;
-background: #fff url('images/upbg.gif') no-repeat;
+background: beige;
 width: 747px;
 height: 264px;
 z-index: 1;
@@ -103,9 +103,9 @@ z-index: 1;
 #outer
 {
 position: relative;
-width: 747px;
+width: 100%;
 margin: 0 auto;
-background: #fff url('images/abg.gif') repeat-y;
+background: white;
 }
 
 #inner
@@ -119,7 +119,7 @@ z-index: 2;
 {
 position: absolute;
 background: #FF7800 url('images/a8.gif') repeat-x;
-width: 202px;
+width: 95%;
 height: 92px;
 color: #fff;
 padding-left: 20px;
@@ -245,7 +245,7 @@ margin-bottom: 20px;
 #primarycontent
 {
 position: relative;
-width: 480px;
+width: 80%;
 float: left;
 }
 

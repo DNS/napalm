@@ -7,11 +7,13 @@ import javax.ws.rs.Path;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.servlet.FilterMapping;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -63,9 +65,11 @@ public class NapalmServer extends Server {
 		// first add Jersey servlets, then static
 		if (rootRestUrls.contains("/")) {
 			context.addServlet(jerseyHolder, "/*");
+			context.addFilter(OpenEntityManagerInViewFilter.class, "/*", FilterMapping.REQUEST);
 		} else {
 			for (String restUrl : rootRestUrls) {
 				context.addServlet(jerseyHolder, restUrl + "/*");
+				context.addFilter(OpenEntityManagerInViewFilter.class, restUrl + "/*", FilterMapping.REQUEST);
 			}
 		}
 

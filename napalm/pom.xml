@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>napalm</groupId>
 	<artifactId>napalm-parent</artifactId>
@@ -9,14 +10,10 @@
 	<url>http://maven.apache.org</url>
 	<modules>
 		<module>core</module>
-		<!-- <module>maven</module> -->
 		<module>napalm-velocity</module>
 		<module>napalm-freemarker</module>
-		<!-- 
-		<module>napalm-haml</module>
-		 -->
-    <module>napalm-examples-invoicing</module>
-  </modules>
+		<module>napalm-examples-invoicing</module>
+	</modules>
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE
 		</org.springframework.version>
@@ -49,6 +46,11 @@
 
 		<dependencies>
 			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.6.10</version>
+			</dependency>
+			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
 				<version>${org.springframework.version}</version>
@@ -66,6 +68,11 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-tx</artifactId>
+				<version>${org.springframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
 				<version>${org.springframework.version}</version>
 			</dependency>
 			<dependency>
