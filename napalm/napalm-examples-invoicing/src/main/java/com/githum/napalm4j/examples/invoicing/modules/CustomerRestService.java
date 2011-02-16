@@ -21,17 +21,15 @@ public class CustomerRestService {
 	@Autowired
 	private NapalmFreeMarker fm;
 	private JpaTemplate jpa;
+
 	@Autowired
 	public void setEntityManagerFactory(EntityManagerFactory emf) {
 		this.jpa = new JpaTemplate(emf);
 	}
-	@Autowired private DatabasePopulator populator;
 
 	@GET
 	public String getIndex() {
-		populator.createData();
-		return fm.render("customers.ftl", "customers",
-				this.jpa.findByNamedQuery("customers"));
+		return fm.render("customers.ftl", "customers", this.jpa.findByNamedQuery("customers"));
 	}
 
 }
