@@ -5,6 +5,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -20,12 +21,8 @@ import com.github.napalm.interfaces.DataProvider;
  */
 public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Object> {
 
-	@Getter
+	@Getter @Setter
 	private JpaTemplate template;
-
-	public void setJpaTemplate(JpaTemplate t) {
-		this.template = t;
-	}
 
 	@Autowired
 	private JpaNamedQueryManager queryManager;

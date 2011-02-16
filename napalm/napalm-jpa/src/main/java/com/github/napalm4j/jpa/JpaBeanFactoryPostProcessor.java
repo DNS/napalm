@@ -103,7 +103,7 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
 					// auto-create the JpaQueryEngine for this template
 					JpaQueryEngine engine = new JpaQueryEngine();
-					engine.setJpaTemplate(jpa);
+					engine.setTemplate(jpa);
 					LOG.debug("Auto-creating JpaQueryEngine for DataSource {}", entry.getKey());
 					beanFactory.registerSingleton(entry.getKey() + JPA_QUERY_ENGINE_SUFFIX, engine);
 				}
