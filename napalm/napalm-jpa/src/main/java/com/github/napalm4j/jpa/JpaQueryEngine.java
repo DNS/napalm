@@ -1,6 +1,8 @@
 package com.github.napalm4j.jpa;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +10,8 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.scheduling.TaskScheduler;
 
@@ -27,7 +31,6 @@ public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Obj
 	private NapalmConfig config;
 	@Autowired
 	private ApplicationContext ctx;
-
 	@Autowired
 	private TaskScheduler scheduler;
 
@@ -52,10 +55,13 @@ public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Obj
 
 	private JpaTemplate getTemplate(DataSource dataSource) {
 		if (!cachedTemplates.containsKey(dataSource)) {
-			// TODO ctx.getBeansOfType(EntityManagerFactory.class);
-
-			JpaTemplate t = null;// TODO = new JpaTemplate(dataSource);
-			cachedTemplates.put(dataSource, t);
+			Map<String, EntityManagerFactoryInfo> emfs = ctx.getBeansOfType(EntityManagerFactoryInfo.class);
+			for (Entry<String, EntityManagerFactoryInfo> entry : emfs.entrySet()) {
+				if (dataSource.equals(entry.getValue().getDataSource())) {
+					JpaTemplate t = new JpaTemplate(entry.getValue().getNativeEntityManagerFactory());
+					cachedTemplates.put(dataSource, t);
+				}
+			}
 		}
 		return cachedTemplates.get(dataSource);
 	}
@@ -66,8 +72,37 @@ public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Obj
 	 */
 	@Override
 	public CallableOperation<JpaTemplate, Object> query(DataSource dataSource, String queryName, Object... parameters) {
-		// TODO Auto-generated method stub
-		return null;
+		CallableOperation<JpaTemplate, Object> c = new CallableOperation<JpaTemplate, Object>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public Object call() throws Exception {
+				JpaTemplate t = getDataInterface();
+				List<Object> all = null;
+				String queryString = queries.get(getName());
+				if (queryString != null) {
+					// load named query from our YAML files
+					all = t.find(queryString, getParameters());
+				} else {
+					// loading regular JPA named query from @NamedQuery annotation
+					all = t.findByNamedQuery(getName(), getValue());
+				}
+
+				if (all.size() == 0) {
+					return null;
+				} else if (all.size() == 1) {
+					return all.get(0);
+				} else {
+					throw new InvalidDataAccessApiUsageException("Expected single result, got " + all.size() + ": [" + all + "]");
+				}
+			}
+		};
+		// avoids using final variables
+		c.setName(queryName);
+		c.setDataInterface(getTemplate(dataSource));
+		c.setValue(queries.get(queryName));
+		c.setParameters(parameters);
+
+		return c;
 	}
 
 	/*
@@ -76,8 +111,27 @@ public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Obj
 	 */
 	@Override
 	public CallableOperation<JpaTemplate, List<Object>> queryForList(DataSource dataSource, String queryName, Object... parameters) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		CallableOperation<JpaTemplate, List<Object>> c = new CallableOperation<JpaTemplate, List<Object>>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Object> call() throws Exception {
+				JpaTemplate t = getDataInterface();
+				String queryString = queries.get(getName());
+				if (queryString != null) {
+					// load named query from our YAML files
+					return t.find(queryString, getParameters());
+				} else {
+					// loading regular JPA named query from @NamedQuery annotation
+					return t.findByNamedQuery(getName(), getValue());
+				}
+			}
+		};
+		// avoids using final variables
+		c.setName(queryName);
+		c.setDataInterface(getTemplate(dataSource));
+		c.setValue(queries.get(queryName));
+		c.setParameters(parameters);
 
+		return c;
+	}
 }
