@@ -88,6 +88,7 @@
     </attributes>
   </classpathentry>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.8.2/junit-4.8.2.jar" sourcepath="M2_REPO/junit/junit/4.8.2/junit-4.8.2-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/projectlombok/lombok/0.9.3/lombok-0.9.3.jar" sourcepath="M2_REPO/org/projectlombok/lombok/0.9.3/lombok-0.9.3-sources.jar"/>
   <classpathentry kind="src" path="/napalm"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.7/snakeyaml-1.7.jar" sourcepath="M2_REPO/org/yaml/snakeyaml/1.7/snakeyaml-1.7-sources.jar"/>
