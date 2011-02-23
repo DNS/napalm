@@ -1,4 +1,4 @@
-package com.github.napalm4j.jpa;
+package com.github.napalm.jpa;
 
 import java.util.concurrent.ConcurrentHashMap;
 

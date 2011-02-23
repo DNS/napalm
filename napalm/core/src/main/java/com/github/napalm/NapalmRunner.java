@@ -1,5 +1,6 @@
 package com.github.napalm;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,6 +15,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import com.github.napalm.spring.NapalmServer;
 import com.github.napalm.utils.DataSourceUtils;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * The main runner for a Napalm app. Usually you would use the Napalm class directly (for a single app) but you could just
@@ -27,6 +29,7 @@ public class NapalmRunner {
 
 	private static final Logger LOG = LoggerFactory.getLogger(NapalmRunner.class);
 	public static final String NAPALM_RUNNER = "napalmRunner";
+	public static final String NAPALM_CLASSES = "napalmClasses";
 	
 	private AnnotationConfigWebApplicationContext ctx = null;
 	
@@ -127,8 +130,14 @@ public class NapalmRunner {
 			LOG.debug("Adding {} as '{}' to Spring context", entry.getValue(), entry.getKey());
 			parentCtx.getBeanFactory().registerSingleton(entry.getKey(),entry.getValue());
 		}
+		
+		//register singleton with Set of classes that make up this Napalm App
+		Set<Class<?>> appSet = Sets.newLinkedHashSet(Arrays.asList(apps));
+		parentCtx.getBeanFactory().registerSingleton(NAPALM_CLASSES, appSet);
+		
 
-		//main context
+
+		//main context - change to XML
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.setParent(parentCtx);
 		ctx.refresh();

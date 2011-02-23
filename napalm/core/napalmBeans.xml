@@ -15,5 +15,6 @@
 	<!-- Everything that we were not able to do programmatically that still 
 		required XML config -->
 	<task:annotation-driven />
+	<tx:annotation-driven />
 
 </beans>

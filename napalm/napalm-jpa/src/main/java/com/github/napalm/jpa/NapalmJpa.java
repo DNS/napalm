@@ -1,4 +1,4 @@
-package com.github.napalm4j.jpa;
+package com.github.napalm.jpa;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.github.napalm.interfaces.DataProvider;
  * 
  * Allows to parallelize JPA queries and fetch named queries from classpath:jpa/*.yml (vs using regular JpaTemplate)
  */
-public class JpaQueryEngine implements DataProvider<DataSource, JpaTemplate, Object> {
+public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> {
 
 	@Getter @Setter
 	private JpaTemplate template;

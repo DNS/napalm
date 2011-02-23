@@ -3,6 +3,7 @@ package com.github.napalm.spring;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -22,6 +23,7 @@ public class SpringConfiguration {
 
 	public static final String NAPALM_EXECUTOR = "napalmExecutor";
 	public static final String NAPALM_SCHEDULER = "napalmScheduler";
+	public static final String NAPALM_SERVLET_CONTEXT_HANDLER = "napalmServletContextHandler";
 
 	/**
 	 * @return A pre-configured executor with a fixed thread pool equal to the number of CPUs on the server
@@ -39,6 +41,15 @@ public class SpringConfiguration {
 	@Scope("singleton")
 	public TaskScheduler getNapalmScheduler() {
 		return new ThreadPoolTaskScheduler();
+	}
+
+	/**
+	 * @return The Jetty servlet context handler that plugins can jack into and customize during boot up
+	 */
+	@Bean(name = NAPALM_SERVLET_CONTEXT_HANDLER)
+	@Scope("singleton")
+	public ServletContextHandler getNapalServletContextHander() {
+		return new ServletContextHandler(ServletContextHandler.SESSIONS);
 	}
 
 }

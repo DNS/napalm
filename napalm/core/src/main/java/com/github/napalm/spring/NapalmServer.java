@@ -7,13 +7,11 @@ import javax.ws.rs.Path;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.eclipse.jetty.servlet.FilterMapping;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -30,6 +28,8 @@ public class NapalmServer extends Server {
 	private WebApplicationContext ctx;
 	@Autowired
 	private NapalmConfig config;
+	@Autowired
+	private ServletContextHandler servletContextHandler;
 
 	public void init(int port, Class<?>... apps) {
 
@@ -37,9 +37,8 @@ public class NapalmServer extends Server {
 		connector.setPort(port);
 		setConnectors(new Connector[] { connector });
 
-		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		context.setContextPath("/");
-		context.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
+		servletContextHandler.setContextPath("/");
+		servletContextHandler.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
 
 		Set<String> rootRestUrls = getRootRestUrls(apps);
 
@@ -64,25 +63,25 @@ public class NapalmServer extends Server {
 		// figure out which URLs to serve via which servlet and in what order
 		// first add Jersey servlets, then static
 		if (rootRestUrls.contains("/")) {
-			context.addServlet(jerseyHolder, "/*");
-			context.addFilter(OpenEntityManagerInViewFilter.class, "/*", FilterMapping.REQUEST);
+			servletContextHandler.addServlet(jerseyHolder, "/*");
+			// servletContextHandler.addFilter(OpenEntityManagerInViewFilter.class, "/*", FilterMapping.REQUEST);
 		} else {
 			for (String restUrl : rootRestUrls) {
-				context.addServlet(jerseyHolder, restUrl + "/*");
-				context.addFilter(OpenEntityManagerInViewFilter.class, restUrl + "/*", FilterMapping.REQUEST);
+				servletContextHandler.addServlet(jerseyHolder, restUrl + "/*");
+				// servletContextHandler.addFilter(OpenEntityManagerInViewFilter.class, restUrl + "/*", FilterMapping.REQUEST);
 			}
 		}
 
 		if (rootRestUrls.contains("/")) {
 			LOG.info("JAX-RS service hooked up to /, static content will be server from /static");
-			context.addServlet(staticHolder, "/static/*");
+			servletContextHandler.addServlet(staticHolder, "/static/*");
 
 		} else {
 			LOG.info("JAX-RS service NOT hooked up to /, static content will be server from / directly");
-			context.addServlet(staticHolder, "/*");
+			servletContextHandler.addServlet(staticHolder, "/*");
 		}
 
-		setHandler(context);
+		setHandler(servletContextHandler);
 
 		if (config.isInDevelopmentMode()) {
 			LOG.info("Detected Napalm DEVELOPMENT mode");
