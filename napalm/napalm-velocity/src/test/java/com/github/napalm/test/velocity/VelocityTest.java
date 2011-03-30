@@ -6,12 +6,13 @@ import org.junit.Test;
 
 import com.github.napalm.Napalm;
 import com.github.napalm.utils.BddTester;
+import com.github.napalm.velocity.NapalmVelocity;
 
 public class VelocityTest {
 
 	@Before
 	public void before() {
-		Napalm.start(8080, VelocityTestApp.class);
+		Napalm.start(8080, VelocityTestApp.class, NapalmVelocity.class);
 	}
 
 	@After

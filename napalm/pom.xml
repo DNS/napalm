@@ -240,8 +240,6 @@
 
 	</build>
 
-
-
 	<repositories>
 		<repository>
 			<id>JBoss</id>

@@ -134,8 +134,6 @@ public class NapalmRunner {
 		//register singleton with Set of classes that make up this Napalm App
 		Set<Class<?>> appSet = Sets.newLinkedHashSet(Arrays.asList(apps));
 		parentCtx.getBeanFactory().registerSingleton(NAPALM_CLASSES, appSet);
-		
-
 
 		//main context - change to XML
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
