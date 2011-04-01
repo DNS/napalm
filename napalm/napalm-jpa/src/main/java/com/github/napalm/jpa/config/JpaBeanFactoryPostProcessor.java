@@ -1,4 +1,4 @@
-package com.github.napalm.jpa;
+package com.github.napalm.jpa.config;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -7,25 +7,20 @@ import java.util.Set;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.FilterMapping;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Service;
 
-import com.github.napalm.spring.NapalmConfig;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
@@ -56,11 +51,6 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
 	private static final Set<String> memoryDb = new ImmutableSet.Builder<String>().add("jdbc:h2:mem", "jdbc:derby:memory").build();
 
-	@Autowired
-	private ServletContextHandler servletContextHandler;
-	@Autowired(required = true)
-	private NapalmConfig config;
-
 	/*
 	 * (non-Javadoc)
 	 * @see
@@ -80,6 +70,8 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 			Map<String, JpaTemplate> templates = beanFactory.getBeansOfType(JpaTemplate.class);
 			Map<String, JpaTransactionManager> txManagers = beanFactory.getBeansOfType(JpaTransactionManager.class);
 
+			PersistenceUnitManager mgr = new NapalmPersistenceUnitManager(beanFactory);
+
 			for (Entry<String, DataSource> entry : dses.entrySet()) {
 				DataSource ds = entry.getValue();
 				String url = ds.getConnection().getMetaData().getURL();
@@ -87,7 +79,10 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 				// auto-create if not defined
 				if (emf == null) {
 					LocalContainerEntityManagerFactoryBean springEmf = new LocalContainerEntityManagerFactoryBean();
+
+					springEmf.setPersistenceUnitManager(mgr);
 					springEmf.setPersistenceUnitName(entry.getKey());
+
 					springEmf.setDataSource(ds);
 					springEmf.setBeanName(entry.getKey() + EMF_SUFFIX);
 
@@ -105,20 +100,6 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 					LOG.debug("Auto-creating LocalContainerEntityManagerFactoryBean for DataSource {}", entry.getKey());
 					String name = entry.getKey() + EMF_SUFFIX;
 					beanFactory.registerSingleton(name, emf);
-
-					// auto-register the OpenEntityManagerInViewFilter filter
-					// TODO: make it more intelligent in case of multiple EMFs
-					Set<String> restUrls = beanFactory.getBean(NapalmConfig.class).getRestUrls();
-					FilterHolder filterHolder = new FilterHolder(OpenEntityManagerInViewFilter.class);
-					filterHolder.setInitParameter("entityManagerFactoryBeanName", name); // bind it to a particular EMF
-
-					for (String restUrl : restUrls) {
-						if (restUrl.endsWith("/")) {
-							servletContextHandler.addFilter(filterHolder, url + "*", FilterMapping.REQUEST);
-						} else {
-							servletContextHandler.addFilter(filterHolder, url + "/*", FilterMapping.REQUEST);
-						}
-					}
 				}
 
 				// auto-create JpaTransactionManager if not defined
@@ -135,12 +116,6 @@ public class JpaBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 					jpa = new JpaTemplate(emf.getNativeEntityManagerFactory());
 					LOG.debug("Auto-creating JpaTemplate for DataSource {}", entry.getKey());
 					beanFactory.registerSingleton(entry.getKey() + JPA_TEMPLATE_SUFFIX, jpa);
-
-					// auto-create the JpaQueryEngine for this template
-					NapalmJpa engine = new NapalmJpa();
-					engine.setTemplate(jpa);
-					LOG.debug("Auto-creating JpaQueryEngine for DataSource {}", entry.getKey());
-					beanFactory.registerSingleton(entry.getKey() + JPA_QUERY_ENGINE_SUFFIX, engine);
 				}
 
 			}

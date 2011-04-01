@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Data @EqualsAndHashCode(of="id")
-@XmlRootElement()
+@XmlRootElement
 public class Customer {
 	@Id  @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;

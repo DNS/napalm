@@ -24,7 +24,7 @@ public class NapalmConfig {
 
 	public static final String PROP_NAPALM_DEV = "napalm.dev";
 
-	@Autowired
+	@Autowired(required = true)
 	private WebApplicationContext ctx;
 
 	/**

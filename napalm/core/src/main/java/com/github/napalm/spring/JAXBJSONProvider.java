@@ -2,6 +2,7 @@ package com.github.napalm.spring;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 @Provider
 @Service
-public class JAXBJSONProvider {
+public class JAXBJSONProvider implements ContextResolver<JAXBContext> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JAXBJSONProvider.class);
 
@@ -26,6 +27,7 @@ public class JAXBJSONProvider {
 	private ConcurrentHashMap<Class<?>, JAXBContext> contexts = new ConcurrentHashMap<Class<?>, JAXBContext>();
 
 	public JAXBContext getContext(Class<?> aClass) {
+
 		try {
 			JAXBContext ctx = contexts.get(aClass);
 			if (ctx == null) {

@@ -2,14 +2,10 @@ package com.github.napalm.jpa;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.jpa.JpaTemplate;
+import org.springframework.stereotype.Service;
 
 import com.github.napalm.interfaces.CallableOperation;
 import com.github.napalm.interfaces.DataProvider;
@@ -19,10 +15,8 @@ import com.github.napalm.interfaces.DataProvider;
  * 
  * Allows to parallelize JPA queries and fetch named queries from classpath:jpa/*.yml (vs using regular JpaTemplate)
  */
-public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> {
-
-	@Getter @Setter
-	private JpaTemplate template;
+@Service
+public class NapalmJpa implements DataProvider<JpaTemplate, JpaTemplate, Object> {
 
 	@Autowired
 	private JpaNamedQueryManager queryManager;
@@ -32,7 +26,7 @@ public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> 
 	 * @see com.github.napalm.interfaces.DataProvider#query(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public CallableOperation<JpaTemplate, Object> query(DataSource dataSource, String queryName, Object... parameters) {
+	public CallableOperation<JpaTemplate, Object> query(JpaTemplate dataSource, String queryName, Object... parameters) {
 		CallableOperation<JpaTemplate, Object> c = new CallableOperation<JpaTemplate, Object>() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -58,8 +52,8 @@ public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> 
 		};
 		// avoids using final variables
 		c.setName(queryName);
-		c.setDataInterface(this.template);
-		
+		c.setDataInterface(dataSource);
+
 		String queryString = queryManager.getQuery(queryName);
 		if (queryString != null) {
 			c.setValue(queryString);
@@ -76,7 +70,7 @@ public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> 
 	 * @see com.github.napalm.interfaces.DataProvider#queryForList(java.lang.Object, java.lang.String, java.lang.Object[])
 	 */
 	@Override
-	public CallableOperation<JpaTemplate, List<Object>> queryForList(DataSource dataSource, String queryName, Object... parameters) {
+	public CallableOperation<JpaTemplate, List<Object>> queryForList(JpaTemplate dataSource, String queryName, Object... parameters) {
 		CallableOperation<JpaTemplate, List<Object>> c = new CallableOperation<JpaTemplate, List<Object>>() {
 			@SuppressWarnings("unchecked")
 			@Override
@@ -93,7 +87,7 @@ public class NapalmJpa implements DataProvider<DataSource, JpaTemplate, Object> 
 		};
 		// avoids using final variables
 		c.setName(queryName);
-		c.setDataInterface(this.template);
+		c.setDataInterface(dataSource);
 		String queryString = queryManager.getQuery(queryName);
 		if (queryString != null) {
 			c.setValue(queryString);

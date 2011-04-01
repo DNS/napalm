@@ -9,33 +9,49 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import junit.framework.TestCase;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.napalm.Napalm;
 import com.github.napalm.jpa.NapalmJpa;
+import com.google.common.collect.Lists;
 
 /**
  * JPA test app
  */
 @Service
 @Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class NapalmJpaTestApp extends TestCase {
 
-	// @Autowired
-	// private EntityManagerFactory emf;
+	@Autowired
+	private JpaTemplate jpa;
 
-	// @Autowired
-	// private NapalmJpa query;
+	@Autowired
+	private NapalmJpa query;
 
+	@SuppressWarnings("unchecked")
 	@GET
 	public List<Customer> getCustomers() {
-		return null;
+		// return jpa.find("SELECT c FROM Customer c");
+
+		Customer c = new Customer();
+		c.setEmail("jacek@test.com");
+		c.setId(1L);
+		c.setFirstName("Jacek");
+		c.setLastName("Furmankiewicz");
+
+		return Lists.newArrayList(c);
+
 	}
 
 	@GET
