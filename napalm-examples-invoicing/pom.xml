@@ -4,17 +4,17 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
+		<groupId>com.github.napalm</groupId>
 		<artifactId>napalm-parent</artifactId>
-		<groupId>napalm</groupId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>napalm</groupId>
+	<groupId>com.github.napalm</groupId>
 	<artifactId>napalm-examples-invoicing</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Napalm Examples: Invoicing app</name>
 	<dependencies>
 		<dependency>
-			<groupId>napalm</groupId>
+			<groupId>com.github.napalm</groupId>
 			<artifactId>napalm-freemarker</artifactId>
 			<version>${parent.version}</version>
 		</dependency>

@@ -4,18 +4,18 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>napalm</groupId>
+		<groupId>com.github.napalm</groupId>
 		<artifactId>napalm-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>napalm</groupId>
+	<groupId>com.github.napalm</groupId>
 	<artifactId>napalm-freemarker</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Napalm Freemarker Plugin</name>
 	<dependencies>
 		<dependency>
-			<groupId>napalm</groupId>
-			<artifactId>napalm</artifactId>
+			<groupId>com.github.napalm</groupId>
+			<artifactId>napalm-core</artifactId>
 			<version>${parent.version}</version>
 		</dependency>		
 		<dependency>
