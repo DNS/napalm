@@ -17,6 +17,7 @@
 	</modules>
 	<properties>
 		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
+		<jetty.version>8.0.4.v20111024</jetty.version>
 	</properties>
 
 	<licenses>
@@ -132,7 +133,7 @@
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-webapp</artifactId>
-				<version>7.2.2.v20101205</version>
+				<version>${jetty.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cglib</groupId>

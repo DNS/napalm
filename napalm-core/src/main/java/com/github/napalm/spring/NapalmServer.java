@@ -30,7 +30,7 @@ public class NapalmServer extends Server {
 	private NapalmConfig config;
 	@Autowired
 	private ServletContextHandler servletContextHandler;
-
+	
 	public void init(int port, Class<?>... apps) {
 
 		Connector connector = new SelectChannelConnector();

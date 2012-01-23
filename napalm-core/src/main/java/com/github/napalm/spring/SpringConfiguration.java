@@ -6,10 +6,12 @@ import java.util.concurrent.Executors;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * A Java-Config for common dynamically-created Spring beans
@@ -17,8 +19,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  * @author jacekf
  */
 @Configuration
-@ImportResource("napalm/spring/napalmBeans.xml")
-// needed for bootstrapping of @Transactional, @Async, @Scheduled support
+@EnableTransactionManagement
+@EnableAsync
+@EnableScheduling
 public class SpringConfiguration {
 
 	public static final String NAPALM_EXECUTOR = "napalmExecutor";
@@ -48,7 +51,7 @@ public class SpringConfiguration {
 	 */
 	@Bean(name = NAPALM_SERVLET_CONTEXT_HANDLER)
 	@Scope("singleton")
-	public ServletContextHandler getNapalServletContextHander() {
+	public ServletContextHandler getNapalmServletContextHander() {
 		return new ServletContextHandler(ServletContextHandler.SESSIONS);
 	}
 
