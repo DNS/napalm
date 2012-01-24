@@ -8,6 +8,16 @@ import com.github.napalm.spring.NapalmServer;
 public class Napalm {
 
 	private static NapalmRunner defaultRunner = new NapalmRunner();
+	
+	/**
+	 * Name of Spring entity containing the parsed Map<String,Object> from the YAML configuration file
+	 * Can be @Autowired into plugins for parsing default configuration during start up
+	 */
+	public static final String CONFIG_MAP = "config";
+	/**
+	 * Name of int resource containing the PORT on which the app is running 
+	 */
+	public static final String PORT = "port";
 
 	/**
 	 * Adds a runtime resource (that can be accessed in Spring via @Resource). Should be executed BEFORE the start() or run()

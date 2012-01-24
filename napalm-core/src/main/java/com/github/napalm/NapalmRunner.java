@@ -1,16 +1,21 @@
 package com.github.napalm;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.yaml.snakeyaml.Yaml;
 
 import com.github.napalm.spring.NapalmServer;
 import com.github.napalm.utils.DataSourceUtils;
@@ -95,6 +100,7 @@ public class NapalmRunner {
 	 */
 	public void run(int port, Class<?>... apps) {
 		try {
+			this.parseCommandLineOverrides();
 			start(port, apps).join();
 		} catch (RuntimeException ex) {
 			throw ex;
@@ -153,6 +159,53 @@ public class NapalmRunner {
 		ctx.start();
 
 		return ctx;
+	}
+	
+	/**
+	 * Parses a default YAML file with configuration information
+	 * @param configPath
+	 */
+	@SuppressWarnings("unchecked")
+	@SneakyThrows
+	private void parseConfig(String configPath) {
+		Yaml parser = new Yaml();
+		String yaml = FileUtils.readFileToString(new File(configPath));
+		Map<String,Object> config = (Map<String, Object>) parser.load(yaml);
+		
+		//store the entire config as a resource
+		addResource(Napalm.CONFIG_MAP, config);
+		
+		//parse port
+		if(config.containsKey(Napalm.PORT)) {
+			addResource(Napalm.PORT, config.get(Napalm.PORT));
+		}
+		
+		//add default JDBC resources
+		if (config.containsKey("jdbc")) {
+			Map<String,String> jdbc = (Map<String, String>) config.get("jdbc");
+			for(Entry<String,String> entry : jdbc.entrySet()) {
+				addResource(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+	
+	/**
+	 * Allows to overriden any of the settings from the base YAML file via a command line arguments
+	 */
+	private void parseCommandLineOverrides() {
+		Properties props = System.getProperties();
+		//take only the properties we are interested in
+		for(Entry<Object,Object> entry : props.entrySet()) {
+			String key = String.valueOf(entry.getKey());
+			
+			if (Napalm.PORT.equals(entry.getKey())) {
+				addResource(Napalm.PORT, Integer.parseInt(String.valueOf(entry.getValue())));
+			} else if (key.startsWith("jdbc.")) {
+				//add JDBC resources
+				String resourceName = key.substring(5);
+				addResource(resourceName, String.valueOf(entry.getValue()));
+			}
+		}
 	}
 
 	
