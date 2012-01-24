@@ -12,8 +12,7 @@ public class FreemarkerTest {
 
 	@Before
 	public void before() {
-		Napalm.addResource("db", "jdbc:h2:mem:db");
-		Napalm.start(8080, FreemarkerTestApp.class, NapalmFreeMarker.class);
+		Napalm.start("src/test/resources/config/app.yml", FreemarkerTestApp.class, NapalmFreeMarker.class);
 	}
 
 	@After

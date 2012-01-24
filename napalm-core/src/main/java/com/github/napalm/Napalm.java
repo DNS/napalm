@@ -33,21 +33,21 @@ public class Napalm {
 	/**
 	 * Starts Napalm, but does not join to it
 	 * 
-	 * @param port Port
+	 * @param configPath Path of YAML config file
 	 * @param apps List of root applications
 	 */
-	public static NapalmServer start(int port, Class<?>... apps) {
-		return defaultRunner.start(port, apps);
+	public static NapalmServer start(String configPath, Class<?>... apps) {
+		return defaultRunner.start(configPath, apps);
 	}
 
 	/**
 	 * Runs Napalm
 	 * 
-	 * @param port Port
+	 * @param configPath Path of YAML config file
 	 * @param apps List of root applications
 	 */
-	public static void run(int port, Class<?>... apps) {
-		defaultRunner.run(port, apps);
+	public static void run(String configPath, Class<?>... apps) {
+		defaultRunner.run(configPath, apps);
 	}
 
 	/**

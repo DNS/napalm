@@ -52,7 +52,6 @@ public class NapalmStaticTestApp {
 	}
 
 	public static void main(String[] args) {
-		Napalm.addResource("db", "jdbc:h2:mem:db2");
-		Napalm.run(8081, NapalmStaticTestApp.class);
+		Napalm.run("src/test/resources/config/staticapp.yml", NapalmStaticTestApp.class);
 	}
 }

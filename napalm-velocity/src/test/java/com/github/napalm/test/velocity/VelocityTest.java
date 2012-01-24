@@ -12,7 +12,7 @@ public class VelocityTest {
 
 	@Before
 	public void before() {
-		Napalm.start(8080, VelocityTestApp.class, NapalmVelocity.class);
+		Napalm.start(null, VelocityTestApp.class, NapalmVelocity.class);
 	}
 
 	@After

@@ -1,0 +1,4 @@
+port: 8080
+
+jdbc:
+  db: jdbc:h2:mem:db

@@ -23,10 +23,10 @@ public class CoreTest {
 	@Before
 	public void before() {
 		restRunner.addResource("db", "jdbc:h2:mem:db1");
-		restRunner.start(8080, NapalmRestTestApp.class);
+		restRunner.start("src/test/resources/config/restapp.yml", NapalmRestTestApp.class);
 
 		staticRunner.addResource("db", "jdbc:h2:mem:db2");
-		staticRunner.start(8081, NapalmStaticTestApp.class);
+		staticRunner.start("src/test/resources/config/staticapp.yml", NapalmStaticTestApp.class);
 	}
 
 	@After

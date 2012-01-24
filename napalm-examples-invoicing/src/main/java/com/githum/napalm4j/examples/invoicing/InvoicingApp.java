@@ -26,7 +26,6 @@ public class InvoicingApp {
 	}
 
 	public static void main(String[] args) {
-		Napalm.addResource("db", "jdbc:h2:mem:napalmInvoicing");
-		Napalm.run(8080, InvoicingApp.class, NapalmFreeMarker.class);
+		Napalm.run("src/test/resources/config/app.yml", InvoicingApp.class, NapalmFreeMarker.class);
 	}
 }

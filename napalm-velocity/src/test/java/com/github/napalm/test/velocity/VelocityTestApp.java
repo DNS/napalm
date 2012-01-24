@@ -27,6 +27,6 @@ public class VelocityTestApp {
 	}
 
 	public static void main(String[] args) {
-		Napalm.run(8080, VelocityTestApp.class, NapalmVelocity.class);
+		Napalm.run(null, VelocityTestApp.class, NapalmVelocity.class);
 	}
 }

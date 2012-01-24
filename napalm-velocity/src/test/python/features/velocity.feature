@@ -1,4 +1,4 @@
-Using step definitions from: '../../../../../core/src/test/python/features/steps'  #reuse same core steps.py
+Using step definitions from: '../../../../../napalm-core/src/test/python/features/steps'  #reuse same core steps.py
 
 Feature: Napalm Velocity support
     As a user I want to be able to access REST resources

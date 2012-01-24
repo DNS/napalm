@@ -65,17 +65,24 @@ public class NapalmRunner {
 	 * @param port Port
 	 * @param apps List of root applications
 	 */
-	public NapalmServer start(int port, Class<?>... apps) {
+	public NapalmServer start(String configPath, Class<?>... apps) {
 		try {
 
 			if (ctx != null) {
 				throw new RuntimeException("A Napalm server is already running!");
 			}
+			
+			//put in default port 8080 and configure server
+			addResource(Napalm.PORT, 8080);
+			parseConfig(configPath);
+			parseCommandLineOverrides();
 
+			int port = (Integer)resources.get(Napalm.PORT);
+			
 			ctx = initSpring(apps);
 			final NapalmServer web = ctx.getBean(NapalmServer.class);
 
-			web.init(port, apps);
+			web.init(port,apps);
 			web.start();
 
 			LOG.info("Successfully started Napalm on port " + port);
@@ -93,15 +100,14 @@ public class NapalmRunner {
 	}
 
 	/**
-	 * Runs Napalm
+	 * Runs Napa lm
 	 * 
 	 * @param port Port
 	 * @param apps List of root applications
 	 */
-	public void run(int port, Class<?>... apps) {
+	public void run(String configPath, Class<?>... apps) {
 		try {
-			this.parseCommandLineOverrides();
-			start(port, apps).join();
+			start(configPath, apps).join();
 		} catch (RuntimeException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -168,23 +174,26 @@ public class NapalmRunner {
 	@SuppressWarnings("unchecked")
 	@SneakyThrows
 	private void parseConfig(String configPath) {
-		Yaml parser = new Yaml();
-		String yaml = FileUtils.readFileToString(new File(configPath));
-		Map<String,Object> config = (Map<String, Object>) parser.load(yaml);
-		
-		//store the entire config as a resource
-		addResource(Napalm.CONFIG_MAP, config);
-		
-		//parse port
-		if(config.containsKey(Napalm.PORT)) {
-			addResource(Napalm.PORT, config.get(Napalm.PORT));
-		}
-		
-		//add default JDBC resources
-		if (config.containsKey("jdbc")) {
-			Map<String,String> jdbc = (Map<String, String>) config.get("jdbc");
-			for(Entry<String,String> entry : jdbc.entrySet()) {
-				addResource(entry.getKey(), entry.getValue());
+		if (configPath != null) {
+			Yaml parser = new Yaml();
+			String yaml = FileUtils.readFileToString(new File(configPath));
+			Map<String,Object> config = (Map<String, Object>) parser.load(yaml);
+			
+			//store the entire config as a resource
+			addResource(Napalm.CONFIG_MAP, config);
+			
+			//parse port
+			if(config.containsKey(Napalm.PORT)) {
+				addResource(Napalm.PORT, config.get(Napalm.PORT));
+			}
+			
+			//add default JDBC resources
+			if (config.containsKey("jdbc")) {
+				
+				Map<String,String> jdbc = (Map<String, String>) config.get("jdbc");
+				for(Entry<String,String> entry : jdbc.entrySet()) {
+					addResource(entry.getKey(), entry.getValue());
+				}
 			}
 		}
 	}

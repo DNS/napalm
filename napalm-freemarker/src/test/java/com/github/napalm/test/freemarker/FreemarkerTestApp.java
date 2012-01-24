@@ -42,7 +42,6 @@ public class FreemarkerTestApp {
 	}
 
 	public static void main(String[] args) {
-		Napalm.addResource("db", "jdbc:h2:mem:db");
-		Napalm.run(8080, FreemarkerTestApp.class, NapalmFreeMarker.class);
+		Napalm.run("src/test/resources/config/app.yml", FreemarkerTestApp.class, NapalmFreeMarker.class);
 	}
 }

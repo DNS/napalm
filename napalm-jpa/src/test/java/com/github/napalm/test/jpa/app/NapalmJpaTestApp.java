@@ -89,8 +89,7 @@ public class NapalmJpaTestApp extends TestCase {
 	}
 
 	public static void main(String[] args) {
-		Napalm.addResource("db", "jdbc:h2:mem:db");
-		Napalm.run(8080, NapalmJpaTestApp.class, NapalmJpa.class);
+		Napalm.run("src/test/resources/config/app.yml", NapalmJpaTestApp.class, NapalmJpa.class);
 	}
 
 }
